@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <script type="text/javascript">
+            function httpGetAsync(theUrl, callback)
+            {
+                var xmlHttp = new XMLHttpRequest();
+                xmlHttp.onreadystatechange = function() 
+                { 
+                    if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+                        callback(xmlHttp.responseText);
+                }
+                xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+                xmlHttp.send(null);
+            }
+            function firstname(text){
+                json = JSON.parse(text)
+                document.getElementById("firstname").innerHTML = json['firstname']
+            }
+        </script>
+    </head>
+    <body>
+        <h2>How Can I call a REST Service with JavaScript?</h2>
+        <p id="firstname">Firstname expected here.</p>
+        <button 
+            type="button" 
+            onclick='httpGetAsync("http://localhost:5000/people/5a7c7bae1426083b43b3725f", firstname)'>Click Me!</button>
+    </body> 
+</html>
