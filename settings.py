@@ -72,7 +72,7 @@ X_DOMAINS = '*'
 # This field is automatically handled by Eve. Defaults to '_created'.
 #DATE_CREATED = 'created'
 
-# Name of the field used to record a document’s last update date. 
+# Name of the field used to record a document's last update date. 
 # This field is automatically handled by Eve. Defaults to '_updated'.
 #LAST_UPDATED = 'updated'
 
