@@ -100,3 +100,7 @@ ENV/
 # mypy
 .mypy_cache/
 workspace.xml
+code/.idea/code.iml
+code/.idea/misc.xml
+code/.idea/modules.xml
+code/.idea/inspectionProfiles/profiles_settings.xml
