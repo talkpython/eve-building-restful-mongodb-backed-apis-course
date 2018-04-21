@@ -1,0 +1,31 @@
+00:01 Whenever we send an invalid document to our API
+00:04 like this one for example, where first name is supposed to be a string
+00:08 but I am sending a number,
+00:10 what we get back from the API is an unprocessable entity response,
+00:14 and payload contains some information
+00:18 about what went wrong with our document.
+00:21 So here we have a status, key, and of course, it is an error,
+00:25 we have an issues key where every key is a field
+00:29 and then we have the errors for the field,
+00:32 in this case, there is only one error so this is a string,
+00:35 but if we had more than one error it would be a list.
+00:39 And then we have the error where we get
+00:41 a human readable explanation of what happened.
+00:45 Now, this all works because Eve comes with
+00:47 powerful builtin data validation features,
+00:50 whenever we define an endpoint,
+00:52 we also define a schema for the data coming into the endpoint,
+00:56 so if the validation rules are met when the document comes in,
+00:59 then the document is accepted and stored onto the database.
+01:03 If any of the rules is not met, then the document is rejected.
+01:09 We already defined the validation schema back
+01:12 when we were building our first app,
+01:15 let's go back to our code editor, here we see that we defined the two fields,
+01:19 first time and last time and both were of type string,
+01:23 so whenever we send a number
+01:25 or anything else which isn't a string, we get an error back.
+01:28 Now, in fact, you have a lot more rules you can set for your fields,
+01:33 and in the following lectures, we're going to learn more about them
+01:37 and how we can fine tune our document rules
+01:41 to make sure that documents coming into the database
+01:44 exactly match our use case.

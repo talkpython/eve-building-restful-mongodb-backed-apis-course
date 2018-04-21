@@ -1,0 +1,18 @@
+00:01 It's time to meet your instructor.
+00:03 I am Nicola, hey, nice to meet you!
+00:05 I'm excited that you are taking my class.
+00:07 I live in Ravena, Italy, where I run a software company
+00:10 that makes accounting apps for small businesses.
+00:13 I am a Microsoft MVP, a MongoDB Master,
+00:17 a speaker at local and international conferences and a teacher.
+00:21 In my spare time, I also run the local CoderDojo, a coding club for kids,
+00:27 and DevRomagna, the leading developer community in my area.
+00:30 What is probably more relevant to you however,
+00:33 is that I am the author and maintener several
+00:36 Python and C# open source projects
+00:38 one of them being the Eve Rest framework.
+00:41 I have been leading the Eve project and its ecosystem for five years now
+00:46 so as you can imagine, I am quite involved with it
+00:48 and I am looking forward to share my knowledge with you.
+00:52 If you want to learn more about me and my activity,
+00:55 check out my website that nikolaiarocci.com or follow me on Twitter.

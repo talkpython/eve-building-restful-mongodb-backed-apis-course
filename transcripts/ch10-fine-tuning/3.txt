@@ -1,0 +1,54 @@
+00:00 As we saw endpoint pagination is enabled by default
+00:03 in order to improve performance and preserve bandwidth.
+00:07 When a client requests data, the first items matching the query are server
+00:11 and links to the next and previous pages are included with the response.
+00:16 Default page size as well as
+00:18 maximum number of allowed items per page is configurable,
+00:22 but first let's see how we can disable pagination altogether.
+00:27 Well, this is very simple we have as you now can imagine
+00:31 a boolean setting which is true by default, pagination
+00:36 we can simply turn it off like this,
+00:40 pagination is a delicate feature because it can have a huge impact
+00:44 on your server performance
+00:46 so if you don't need it for some reason, you can simply turn it off
+00:51 and clients won't be able to slow down your service at all,
+00:55 and because pagination is so important you can also set it at a local level
+01:01 for example here, I might want to have pagination
+01:08 still enabled at the people endpoint
+01:11 while I keep it disabled at the global level
+01:15 so all the other endpoints will have pagination disabled
+01:18 except for the people endpoint
+01:21 and whatever else endpoint I decide it should have it.
+01:25 Even if it is less likely to happen, you might want to change
+01:29 the word used in your queries to ask for a specific page,
+01:33.09 like we did with where and sort,
+01:35 you can simply set query page to whatever value you want.
+01:42 Likewise, we might want to change the word used
+01:49 to define a maximum number of items the clients would receive per page.
+01:55 The default is max results, but you can change it whatever you want.
+02:06 Now speaking of max results, it has a default value,
+02:08 if you go back to Postman and try to send a request for a single page here
+02:14 we get the items and we see that the max result is 25.
+02:19 We can change this value to whatever we please
+02:21
+02:26 here we're setting the max result default value to 50 documents per page.
+02:31 You can also set a limit on these max result number
+02:36 pagination limited the setting you need for that
+02:43 and the default value is 50
+02:46 so you probably want to stay between 50 and 100 maybe
+02:50 but that might be already a bit too much, honestly.
+02:54 Pagination default again is 25
+02:57 so you want to stay around these values for your service
+03:00 unless you have a very good hardware
+03:03 and you are not very worried about pagination performance;
+03:06 or you are optimizing for pagination speed
+03:10 because there is an optional optimized pagination for speed option
+03:16 it is disabled by default but you can switch it on
+03:19 it can greatly improve performance on large collections
+03:23 but it comes with a few consequences.
+03:26 Firstly, no document count is returned with a response.
+03:29 Secondly, pagination links are less accurate as no last page link is available.
+03:35 while next page link is always included, even on the last page.
+03:39 Again, on big collections switching this feature on can greatly improve performance.
+03:45.61 It defaults to false for slower performance
+03:48 but document count is included, and the accurate link pages are provided.

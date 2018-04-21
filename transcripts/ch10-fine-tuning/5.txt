@@ -1,0 +1,91 @@
+00:0.0 By default, all API responses include an etag header.
+00:04 An etag is a hash value representing
+00:07 the current state of the resource on the server,
+00:10.39 and it is useful for a variety of reasons.
+00:14.08 Clients are not allowed to edit or delete a resource
+00:17 unless they provide an up to date etag
+00:20 for the resource they are attempting to update.
+00:24.24 This prevents overriding items with obsolete versions.
+00:29.35 Let's see this workflow in action
+00:31 here we have a request to patch a specific document.
+00:35 We want to change the last name to a new value,
+00:38.95 and we aren't providing any etag in the headers.
+00:43.04 By the way, you provide an etag by using the if-match header.
+00:48.33 But right now, we are sending a simple request with no etag for the document.
+00:54.59 When we try this command, we get back a precondition required error,
+01:0.19 which means, as you can see here in the massage
+01:03 to edit a document its etag must be provided using the if-match header.
+01:08 Here I have a second request where I'm doing the same thing,
+01:12 but I'm passing an actual if-match header,
+01:15 but I am simulating that I don't know the current version
+01:19.69 of the etag on the server, just passing around the string here,
+01:22.96 so let's assume that I actually have
+01:25 a cached copy on my client of this person here,
+01:29 but the etag I have is not up to date with the one on the server
+01:33 somebody else updated the document
+01:35 since the last time I downloaded this person.
+01:38 If I try to send this patch in I still get an error but it is a different one
+01:43 it is precondition failed and the message is telling me
+01:47 the client and server etags don't match.
+01:50.21 So if I don't provide an etag, I'm not allowed to update the document
+01:54 if I provide a wrong one, I'm also not authorized to update the document.
+02:00 Now let's try, here I am doing the same thing
+02:04 and I'm actually passing an if-match header with supposedly correct value
+02:11 this etag should match the etag on the server for this person,
+02:16 let's try to patch in and we get an okay response
+02:20 and the document has been updated.
+02:22 By the way, the etag is returned and it is a new one,
+02:26 because, of course, the hash has changed on the server,
+02:29.52 so the next time I try an update or a delete,
+02:32.62 I will have to use this etag because this is the most up to date
+02:37.12 and matches the one on the server.
+02:39 This feature is generally called concurrency control,
+02:43 and again, its goal is to prevent clients to overwrite
+02:48 the document on the server with obsolete versions.
+02:52 Now, concurrency control is a powerful feature,
+02:55 it is especially important when there are many clients competing for updates
+02:59 now depending on your use case,
+03:01 you might not want this complexity in your service
+03:04 you would like to be able to disable this feature
+03:08 and have clients to simply perform edit request
+03:11 without any need to provide an if-match header, you can do that.
+03:16 Let's go back to our editor and simply disable concurrency control
+03:23 by setting if-match to false.
+03:26 If we save, restart, and we go back to our Postman client,
+03:32 if I go back to our original request here
+03:35 where I had no header and still performing a patch
+03:39 on a specific document with a new value,
+03:42
+03:45 if I send this, I should get an okay response now
+03:50 and the document has been updated,
+03:52 let's try a get request on the same endpoint
+03:55 last name has been updated.
+03:58 All right, we now know how to switch concurrency control on and off
+04:03 by setting the if-match setting to true or false.
+04:07 However, these two options are mutually exclusive
+04:10 sometimes it would be nice if clients could actually decide
+04:14 whether the server should check the if-match header or not.
+04:17 Well, it turns out that's possible
+04:20 and again, it is simply a setting a keyword in our settings file.
+04:26 Let's go back to an active if-match check on the server
+04:34 but let's add a new setting and force if-match default value is true.
+04:41.63 If you set it to false, it will let the client decide
+04:45 how the server should behave when our edit request comes in.
+04:49 If the client has the if-match header in its request,
+04:53.54 then check on the etag will be performed by the server.
+04:56.6 If on the contrary, the request has no if-match header,
+05:0.14 no check will be performed by the server.
+05:3.17 Lastly, you have the option to change the key used for the etag,
+05:07 in Json payload, you might not like underscore etag here,
+05:12 some people have been asking to remove the underscores for example,
+05:15 or they want to use a different keyword.
+05:17.57 You can do that by simply setting etag = whatever value you prefer here,
+05:23.25 for example, simply etag without the underscore,
+05:25 let's save, relaunch, go back to our get request.
+05:32 Etag has no underscore anymore.
+05:36.5 This is probably the right time to mention
+05:37 that you can also change the keys for the other meta fields,
+05:42 like updated and created.
+05:45.04 You do that by setting the date created and last updated keywords
+05:51 in your settings file.
+05:53 Here we are again removing the underscore from the the default values.

@@ -1,0 +1,41 @@
+00:0.32 All right, we are ready to go in production,
+00:2.51 but before we do that, we probably want to do some little refactoring.
+00:06 What I want to do here is implement the separation of concerns design principle
+00:12 which I find to be super important
+00:14 when we're building some larger website or web service.
+00:18 So what I did here is I created an authentication script
+00:22 and I moved the authentication class there.
+00:25 Then I also created a callbacks script
+00:30 and I moved my callback functions right there
+00:34 and again, I created the validation script where I moved my validator class.
+00:39 So my app script, which, remember, is our launch script
+00:43 now is simply importing these features from their own modules,
+00:49 and then we are instanciating our Eve class passing the validator,
+00:54 the redis instance, if we need to, we can pass our authentication class.
+00:59
+01:04 And yes, we still have this custom route here
+01:07 we could eventually move it elsewhere in its own module,
+01:12 if we had more than one custom endpoint, probably we might want to do that.
+01:18.18 And then, we are simply attaching our callback function to our app.
+01:22.67 So the launch script only concentrates on creating the app
+01:27 and preparing it for launch.
+01:29.97 And by the way, this separation of concerns principle
+01:35 can also be applied with success to the settings file
+01:38 and specifically to the domain.
+01:41.98 Look at what I've done here.
+01:43.76 I created a folder, I called it domain and within the domain folder,
+01:48 I have two modules, people which contains
+01:52 the endpoint definition for of course, the people endpoint,
+01:55 with the schema and optional rules, like authentications or disabling hateoas,
+02:02 And then I have a works.py where I'm just defining the works endpoint.
+02:8.81 Now, look at this file __init__.py,
+02:12.96 this is not a regular folder, this is a Python package, actually.
+02:17.24 And here I'm importing the two definitions from people and works,
+02:22 and I am creating the domain dictionary.
+02:26 So what I'm doing is allowing the people and works definition
+02:31 to live in their own modules
+02:33 so they can grow over time without polluting the settings file.
+02:37 Since domain is a package in my settings file,
+02:41 all I have to do is import the domain dictionary here
+02:45 and then my settings file is clean from endpoint definitions
+02:49 and all it has to store are global settings for my API.

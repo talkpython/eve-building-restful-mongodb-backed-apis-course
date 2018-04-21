@@ -1,0 +1,110 @@
+00:00 If you go to the Eve homepage, at python-eve.org,
+00:04 you'll find that there's a live demo available for you
+00:07 to play and experiment with.
+00:09 The source code for this demo is on github,
+00:12 so any time you can go and check it out.
+00:14 I suggest you do that once we've done with this course
+00:17 you can use this basic app as a reference or a starting point
+00:22 to build your first experimental or advanced REST service.
+00:26 Thousands of people have been playing and experimenting with it
+00:30 to better assess Eve features and functionalities.
+00:33 Let's do the same so we can get a gentle introduction to the framework
+00:36 and make ourselves a solid idea of what's coming with the rest of the course.
+00:40 Now, depending on the browser you are using
+00:42 when you click on this link at the Eve homepage
+00:45 you will get a different result.
+00:47 I remember getting some xml back from Chrome for example,
+00:49 here I am on Safari and if I click on this link
+00:52 what I get back is basically what appears to be just random strings.
+00:56 They are not really random, actually the API is working well
+01:00 it's providing us with a nice response
+01:02 and if we look at the address bar,
+01:04 we already get some nice information
+01:06 we are hitting a secured service,
+01:08 this service is hosted on Heroku and if I click on that,
+01:14 I can see that I'm actually hitting the people endpoint.
+01:16 Now, if we want to better assess what's going on
+01:20 and understand what the response is
+01:23 we really need to switch it to a better client
+01:26 browsers are not really the best option
+01:28 when you want to use and consume our RESTful service.
+01:31 What we really need is a REST client
+01:34 and as you might remember,
+01:36 we already installed Postman in a previous section of this course,
+01:39 so let's just launch it, and here it is
+01:43 so on Postman we have two panes,
+01:46 on the left side we have the request pane
+01:48 and on the right side we have the response pane,
+01:51 we enter the URL here, let's just pass
+01:55 the same URL we hit before with the browser
+01:57 and click the send button.
+02:01 After a few seconds, we get response back
+02:03 and as you can see, this is actually readable
+02:06 and if we check on the headers tab here
+02:09 we see that the content type is application Json
+02:12 and that the server is actually an Eve instance.
+02:15 Now, this service only exposes 2 endpoints
+02:19 one is people the other one is works, here it is.
+02:25 Now, for both requests we got an OK status back
+02:29 because the endpoints were existing
+02:31 what if we type an endpoint which doesn't exist?
+02:35 Well, of course, as you might expect
+02:38 we get a not found back from the framework
+02:40 and if we look at the response body,
+02:44 we see that actually some Json is provided back
+02:47 it has two nodes, error which has details about the error,
+02:51 so the error code and the message,
+02:53 which is a human readable explanation of the problem, and a status.
+02:57 So every time there is an error with a request
+03:00 you get a proper status and also a human readable parsable Json
+03:06 back from the framework, let's go back to our people endpoint now.
+03:12 Of course, you can define as many endpoints as you want on your service
+03:17 but what if your client can't process Json and needs xml instead.
+03:22 Well, that's easy because it supports both formats,
+03:26 all you have to do is perform a slightly different request
+03:30 let's go here to the headers tab and say
+03:33 that this time we only accept xml and hit send,
+03:38 as you can see now, we're getting xml,
+03:42 if we go to the response headers tab,
+03:44 we see that actually we are provided with xml.
+03:47 Let's try again, and switch back to Json, here it is.
+03:55 Do know that you can configure your service
+03:58 and decide which formats are supported and which aren't.
+04:03 By default, your service will support both Json and xml
+04:07 but we will see in the following segments
+04:09 that we can switch one of them on and off as we please.
+04:14 Let's consider the Json response for a moment.
+04:17 There are 3 main notes, links, items and meta.
+04:21 Meta is easy, we get the total number of documents matching the query,
+04:25 the page we run and the maximum number of documents
+04:29 we get for every page.
+04:31 These settings are of course configurable
+04:34 as well as weather pagination is supported or not.
+04:38 Link has some navigational information for the client
+04:42 and items is an array where we get the actual documents,
+04:47 we already know that we should have seven documents in this array
+04:53 1, 2, 3, 4, 5, 6, 7, let's pick one, like this one,
+05:00 again, every single document has a links node,
+05:04 with navigational information.
+05:07 And then, there are some meta fields and you can tell these are
+05:10 meta fields because they are preceded by these underscore here,
+05:13 so here are the unique id for the document,
+05:16 the last time it was updated and etag
+05:19 which is basically a hash of the document
+05:22 and the date the document was created the first time.
+05:26 The rest are actual document fields like last name, first name, location
+05:31 which, as you can tell, is a subdocument; a role is an array
+05:36 so here we have Mark Green living in New York,
+05:40 and he is both an author and a copy,
+05:44 and he was born on February, 1985.
+05:47 Now we are looking at the default response,
+05:50 but many features can be disabled
+05:52 for example, if you don't like providing the clients with the links,
+05:55 know that you can disable them,
+05:57 what you can't avoid are the document meta fields like id,
+06:01 updated, etag and created, these are needed by the API
+06:04 you don't need to mess with them,
+06:08 the API will handle them for you and for the clients.
+06:11 And they are important
+06:12 because they allow the client to perform conditional queries
+06:15 and the server can perform optimized queries on the database.

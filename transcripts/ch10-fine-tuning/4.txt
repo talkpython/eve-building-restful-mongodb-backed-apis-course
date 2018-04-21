@@ -1,0 +1,57 @@
+00:00 Projections are a powerful feature,
+00:03 they allow a client to dictate of all document fields
+00:05 which ones should be returned with the response.
+00:08
+00:11 In this request here we're asking for just the last name field
+00:15 let's send it over and we can see that all the documents still have
+00:21.05 the meta fields because these are always included
+00:24 no matter the projection. We can also exclude fields,
+00:27 for example, here I'm excluding the last name field
+00:30 I want all the fields but not last name
+00:33 and as you can see, here we're getting first name, location,
+00:36 age, role, etc, but no last name.
+00:40 Projections are nice because they allow the client
+00:44 to pick only the fields it really needs.
+00:47.72 Imagine if the people document had a picture
+00:50 if we don't need a picture, we can just exclude it
+00:55 and we won't be forced to download it, how nice is that?
+00:59.06 You can, of course, disable projections
+01:02 you simply go to the code editor in your settings file
+01:05 and set projection to false.
+01:10 This is global, and as you might expect by now
+01:13 you can go and switch it on at local level if you want to.
+01:18
+01:24.02 So now projections are disabled at all endpoints but people.
+01:28
+01:29 Of course, we can also change the word used to query for a projection
+01:36
+01:41 let me save, relaunch, go back to Postman,
+01:49 and use fields instead. Got it.
+01:56 Now, so far we've have seen that the client can control projections
+02:00 but we can actually predefine projections on server side.
+02:05 Let's see how we do that.
+02:10 Let's first clean up a little bit,
+02:13
+02:15 all right, we define server side projections at the endpoint level,
+02:20 let me paste an example here,
+02:23 data source is dictionary and it allows the projection key
+02:29 do not confuse this projection key with root level projection boolean
+02:33 which allows you to turn projection feature on and off.
+02:38 So here we're setting a projection server side
+02:41 every request sent to the people endpoint
+02:44 will not include last name by default
+02:47 let's try this, save, relaunch as usual and let's ask for people
+02:58.82 without any client projection, same response.
+03:03 No last name included with the response
+03:06
+03:16 as you can see, clients can still alter the output if they wish
+03:19 but that the default is a different projection
+03:23 it is a server projection,
+03:26 default server side projection can come in handy in several situations
+03:29 one is the picture we mentioned before,
+03:32 you aren't letting the clients download it by default
+03:36 but they can still go and require it with a specific projection should they need it.
+03:41 Also keep in mind that projections are a read-only thing
+03:46.19 they don't apply to write operation.
+03:48 You still have a schema endpoint and clients can still write
+03:53 the world document or edit the world document as they please.

@@ -1,0 +1,110 @@
+00:01 I want to show you a few more rules, and the first one is going to be coerce.
+00:05 With coerce, you can pass a callable, and a callable will be applied
+00:09 to the value coming into the field,
+00:12 and the return value of your callable will be used to update the field
+00:17 before validation is performed on the document.
+00:19 So, here I updated my age field,
+00:22 it isn't a read-only field anymore, now it is a writable integer,
+00:27 but we're also applying a coerce rule
+00:30 and the callable we choose to use here is int,
+00:35 so we're converting the value of the field to an integer, if it isn't already.
+00:40 Let's see this one in action.
+00:42 So we have this person here, Mr. Roger Federer,
+00:46 he lives in New York, and he is very young, he has an age of 18,
+00:51 but as you can see, I am passing a string here
+00:54 while age is supposed to be an integer.
+00:57 So normally, we will get an error when we try to save this guy
+01:01 because the type is not the correct one, the expected one,
+01:06 but let's see what happens when we post Roger Federer to our API.
+01:11 As you can see, we get a created, no errors,
+01:14 and we inspect the values of this document,
+01:18 we see that the first name, last name, location and age
+01:22 have been converted to an integer for us.
+01:24 And also you can use an iterable here in your coerce rule,
+01:30 if you do that, any function you provide
+01:35 within your iterable will be applied in sequence.
+01:39 So in this case, first we will get an integer conversion applied to the value,
+01:43 then the result, the return value of this conversion
+01:47 will be passed to the next function, which in this case is a string conversion
+01:52 it doesn't make any sense, it is going to get an error to us,
+01:55 let's go back to hit this error again, but you get the point.
+01:59 Another powerful rule I want to show you is regex,
+02:04 what it does is pretty obvious I think,
+02:07 it allows you to the final regular expression
+02:10 and the value coming into the field will be matched against the expression
+02:14 and only if it passes validation against the expression, it will be accepted
+02:20 so let's go back to Postman, I have my email field here
+02:24 and I am passing a string, it is a valid string but not a valid email.
+02:30 If I try to send this person to the API I get an error,
+02:34 email does not match the regular expression.
+02:37 Now if I go and fix my expression,
+02:39
+02:42 I should get a green light, exactly,
+02:46 so now I have my email validated, correctly, as expected.
+02:52 Another use for rule is dependencies.
+02:55 This is very common here I have one field which is dependent on others
+03:00 So here I added a middle name field
+03:03 and it depends on first name and last name
+03:05 which means that the field itself is not required.
+03:08 In fact, there is no required rule, but if you provide a middle name,
+03:13 you also must provide the first name and last time,
+03:16 otherwise, the field would be rejected.
+03:19 You can also have only one dependency of course,
+03:21 in this case, you can just pass a string with the field name
+03:24 without the need of full list.
+03:27 So let's, try this one, super simple, we have Scott Fitzgerald,
+03:32 we try to send this one off and we get an error
+03:36 because there is an error in the Json, yes,
+03:39 we're missing a comma here, let's try again.
+03:43 As you can see me, middle name field, the first name is required
+03:47 if we add the first name which is the second required field
+03:52 for middle name to be accepted, we get the created message.
+03:59 So dependencies, you can have more than one field
+04:03 if you have more than one you need a list, otherwise the string
+04:06 and another nice feature is that .notation is supported,
+04:10 so suppose that you want middle name
+04:13 to be dependent on location.address for example,
+04:17 which means that not only first name and last name,
+04:21 but also location which as you might remember is a sub document.address
+04:29 must be present in order for middle name to be accepted.
+04:34 Another set of rules I want you to know about is what we call the *of rules.
+04:41 This is a family of rules, actually, you have different variations,
+04:45 so you have all of, any of, non of, one of
+04:50 and what these rules do is
+04:53 they allow you to list multiple sets of rules to validate against.
+04:58 Let's see an example, here I have a property which is called prop 1
+05:05 and the type is number, so both integer and floats will be accepted
+05:11 but I want to accept numbers which are in a range between 0 and 10
+05:16 or in a range between 100 and 110.
+05:21 I don't want to accept 50 for example,
+05:23 which isn't included in any of these two ranges.
+05:26 So what I am going to use is any of
+05:28 so at least one rule in this iterable must be valid
+05:32 in order for the value in this field to be accepted.
+05:36 The rules, as you can see, are defined as dictionaries,
+05:38 here is the first rule and then we have the second rule.
+05:43 Let's go to Postman and try this out, prop 1 is 50,
+05:49 as you can see for field prop 1 we have an issue
+05:52 and the issue is that no definitions were validated.
+05:57 The first one is not valid because the max value is 10 while we provided 50
+06:02 the second rule is not met because the minimum value is 100
+06:07 and again, we provided 50.
+06:11 So depending on your necessity,
+06:13 you can pick the most appropriate of these rules,
+06:16 for example, if you don't want any of the schemas to be valid,
+06:22 then you can use none of,
+06:25 and another interesting one is one of
+06:28 which validates if exactly one of the provided constraints applies.
+06:34 Another interesting feature of these rules is
+06:38 that they allow you what we call a type saver.
+06:43 So, for example, here we are defining a foo field
+06:47 which has a rule anyof_type and then we pass a list of types
+06:54 so string and integer, this is equivalent to
+06:57 doing foo anyof_type string as a first constraint and type it as a second constraint
+07:06 so let's go back to our number definition here.
+07:11 I could replace this with anyof_type integer string,
+07:24 it doesn't really make a lot of sense
+07:27 because we already have the number shortcut for doing this,
+07:31 but it is useful to know that you can do this kind of stuff
+07:34 because it allows you to shorthand most of the rules
+07:38 And when you have a lot of rules in your schema, it can come in handy.

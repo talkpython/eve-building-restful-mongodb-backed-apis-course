@@ -1,0 +1,38 @@
+00:0.07 So far we've been using the Flask builtin server for running our apps.
+00:04 Now while it is lightweight and easy to use,
+00:08 Flask's builtin server is not suitable for production
+00:11 as it doesn't scale well and by default it only serves one request at a time.
+00:18.2 Some options available for properly running Flask in production
+00:21 are documented on the Flask website.
+00:24.56 On the website you'll find instructions
+00:26 on how to host your app on all kinds of services
+00:30 or you can find instructions on how to set up Flask
+00:34 on your own self hosting environment.
+00:37 In this lecture, we'll learn how to run our app on Gunicorn.
+00:42.38 Gunicorn stands for green unicorn,
+00:44 it's a wsgi http server for unix.
+00:48.21 Actually, a pre fork worker model ported from Ruby's unicorn project.
+00:52 The good news is that running a Flask app on this service is very simple
+00:56 Gunicorn comes as a standard Python package
+01:0.5 so all we have to do is pip install it in our environment.
+01:05
+01:08 Now that it is installed, all we have to do is launch it,
+01:13 pass the name of the launch script
+01:18 and within the launch script what is the object holding the wsgi app.
+01:23 So in our case the app.py script contains an apt object
+01:31 and boom, we're done, the server is running on local host port 8000.
+01:37 Now Gunicorn comes with a number
+01:40 of interesting and powerful command line options
+01:43 the most useful probably are
+01:47 -w which allows us to specify the number of workers.
+01:53.6 And that should be where we can say what is the port we want to listen to.
+02:05 So in this example, I'm launching our app with 4 workers
+02:11 and the listening on port 4000.
+02:15 Right. As you can see, we have 4 workers,
+02:19 1, 2, 3, and 4 all listening to local host port 4000.
+02:26 Let's go to Postman and try to send a request.
+02:30 to our port endpoint people— it works.
+02:38.17 That's it, of course, you have many more options.
+02:41.5 Gunicorn is just one of the many options you have,
+02:45 but surely it could be a nice starting point,
+02:48.36 and it also offers very good performances.

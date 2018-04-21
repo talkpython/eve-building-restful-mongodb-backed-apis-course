@@ -1,0 +1,15 @@
+00:01 This is probably the right time to mention
+00:03 that there are some community extensions available
+00:05 that allow you to use backends other than Mongo
+00:08 with your Eve powered API.
+00:10 One interesting option is probably Eve SqlAlchemy.
+00:14 Using SqlAlchemy instead of MongoDB
+00:17 means that you can reuse your existing Sql data model
+00:21 and expose it via Rest thanks to Eve with no hustle.
+00:24 Another option is Eve Elastic
+00:27 which offers elastic search data layer for your Eve framework.
+00:31 I know several Amazon S3 efforts being developed right now
+00:34 and there is also a Neo4J extension available.
+00:39 In general, if you are interested in these extensions,
+00:41 make sure you check the dedicated page on the Eve website
+00:44 at pythoneve.org/extensions.

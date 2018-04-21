@@ -1,0 +1,17 @@
+00:01 In this chapter we saw how we can leverage the builtin flexible validation rules
+00:05 to properly design our endpoint schemas
+00:08 and make sure that documents coming into our service
+00:11 are conforming to the expectations.
+00:14 If necessary, we now also know how to extend a system
+00:18 to build custom validation rules and types.
+00:21 This is the right moment to mention that the Eve validation system
+00:25 is actually provided by a separate package called Cerberus.
+00:29 Cerberus is another open source project of mine
+00:33 which you can use as a validation work course in your own projects, if you wish.
+00:38 Cerberus and Eve websites have plenty of details,
+00:42 usage examples and more importantly,
+00:45 the complete list of available rules,
+00:47 which to be honest, there are more besides the one we've seen in this chapter.
+00:53 I suggest you go and take a look at them because well,
+00:56 data validation is such a vital part of any rest service
+00:59 that you really want to gain full control over it.

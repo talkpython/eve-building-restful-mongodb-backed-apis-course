@@ -1,0 +1,38 @@
+00:01 Speaking about queries, let's see
+00:03 how we could perform queries against our remote API.
+00:06 Let's say that we want to find all the people where last name is Green.
+00:12 So we go over here to the URL and we set a query string
+00:17 we use the where keyword
+00:20 and then we go with a Mongo syntax,
+00:23 you can see here it is basically a Json object
+00:27 so find all the documents where last name is Green.
+00:31 Let's try this one, and as you can see,
+00:35 we only have one document back
+00:37 and it is exactly what we were looking for,
+00:40 let's try something more complex
+00:42 and find all the documents where last name is Green
+00:45 and also location.city is Ravena, which is my hometown in Italy.
+00:55
+00:59 Zero documents back, and that makes sense,
+01:04 it is what we expected, as you can see, the items array is empty.
+01:07 Now if we go back to my query and replace Ravena with New York
+01:12 I should get back my Green guy again.
+01:18 Because location city is in fact New York,
+01:22 so as you can see, you can also query on subdocuments,
+01:25 like we did here using the . syntax
+01:28 you can chain multiple conditions
+01:30 and you can basically use
+01:32 all of the MongoDB supported operators like or, and, etc.
+01:38 You have also another option,
+01:40 if you don't like the Mongo syntax,
+01:42 maybe you are not familiar with it,
+01:44 you can actually use the Python syntax, which is different,
+01:50 let's try one example where last name=green
+01:57 same result, as you can see.
+02:04 So different syntax, similar result.
+02:09 Now we will see in the following segments
+02:12 that you can actually configure your API
+02:16 and decide which syntax you want to support,
+02:19 by default, both of them are allowed,
+02:21 but you can actually turn Python syntax off
+02:25 or Mongo syntax on and off, however you please.

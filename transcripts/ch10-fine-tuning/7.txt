@@ -1,0 +1,34 @@
+00:0.0 We already know that Eve responses
+00:02 are automatically rendered as Json or xml
+00:06 depending on the request accept header.
+00:09 With Json being the default
+00:11 eventually you might decide to disable the support for one of the two renderers.
+00:18 You simply go to the settings file and set either xml or Json to false,
+00:25 they are both true by default, you can't of course switch both of them off
+00:32 otherwise your API won't be able to return any value to the clients.
+00:37 Also remember that in any case inbound documents
+00:41 are always going to be Json
+00:43 even if you've disabled Json rendering in your responses.
+00:49 Speaking of Json, you might not know
+00:51 that the Json format is not ordered,
+00:54 which means that every time you send the same request to the server
+00:58 you might get of course the same keys but in different orders every single time,
+01:03 if you don't like this behavior, you can actually fix that
+01:07 by setting the Json sort key option to true,
+01:13 if you do this— let me turn Json on again,
+01:19
+01:21 if you set the Json sort keys to true,
+01:23 whenever you send a request,
+01:28 you are always going to get back keys in the same order.
+01:35.02 Another fairly frequent feature request is
+01:38 support for custom accept headers
+01:41 or I should say for custom Json formats.
+01:45 So what people want to do is still use the accept header
+01:50 and then set some custom value like csp-report,
+01:56.73 which is a still a valid Json, it has just a different name.
+02:1.27 You can do that easily in Eve,
+02:3.33 you just set the Json request content types list
+02:07 and update it to also support your custom format.
+02:12 The default is of course just this value here,
+02:16.68 but you can again extend it to support
+02:20 whatever Json your legacy clients are supporting.

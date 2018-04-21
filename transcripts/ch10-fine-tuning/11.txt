@@ -1,0 +1,29 @@
+00:0.26 We saw how many features the Eve framework brings to the table
+00:03 and one very important feature you should never forget about is
+00:08 that Eve still is a 100% Flask application.
+00:12 Let me illustrate, if you remember when we were doing
+00:15 the Flask hello world app a few lectures ago,
+00:20 all we had to do was define a function
+00:23 return something, a string, for example,
+00:28
+00:32 and then decorate our function with a route decorator,
+00:38 and we need to pass the URL.
+00:41 So pure Flask RestFul dispatching at work here.
+00:46 But we're using an app instance of Eve class not Flask class
+00:50.48 but because Eve is actually a subclass of Flask
+00:53 this is going to work, let's try and save,
+00:57 server restarts, we go to Postman and we hit the local host 5000 hello endpoint.
+01:08 Boom, hello world, and we're still getting all the features coming from Eve,
+01:16 right now we don't have authentication going here
+01:19 but we only need to edit and here we go,
+01:26 and by the way, we're using Postman here
+01:28 but we could as well go back to our browser access
+01:31
+01:36 our endpoint, as we used to do with the basic Flask application.
+01:40 Of course, if we go and hit the people endpoint from the browser,
+01:44 it works, but we need to authenticate,
+01:48
+01:54 I don't remember the password, it was a secret, right,
+01:58 yes, here it is, well, hardly readable,
+02:00 but rest assured, this is the same output we're getting from Postman.
+02:03 So full Flask power plus Eve features at your fingertips.

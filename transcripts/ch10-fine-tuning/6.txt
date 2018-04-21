@@ -1,0 +1,50 @@
+00:0.2 Hypermedia as the engine of application state
+00:03 or as it is known— HATEOAS
+00:7.24 is enabled by default on the framework.
+00:11 So each get response includes a links section,
+00:14 links provide details on their relation
+00:18 relative to the resource being accessed and a title.
+00:21 Relations and titles can then be used by clients
+00:26 to dynamically update their UI
+00:28.65 or to navigate the API without knowing its structure beforehand.
+00:34 Hyper media as the engine of application state is a nice feature
+00:37 it is included in the Rest principles and by default,
+00:41.58 the Eve framework supports it,
+00:43 but to be honest, I've not seen so many clients make use of this feature
+00:48 and also many Rest services are not providing it.
+00:52 So you have the option to turn it off if you want to
+00:55 let's go and first look at the typical output you get from a get request.
+01:01 Let's close the items array and here it is our links section,
+01:06 we don't want these, let's see how we turn it off.
+01:11.5 By now you probably already imagine what's going to happen.
+01:16.53 I've just set HATEOAS to false. Save, relaunch.
+01:26 And send a request again
+01:28 we're still getting the items array, the meta tag is still there
+01:33.47 but there's no links section
+01:36 so we have disabled the feature completely,
+01:40 let's go to a single document endpoint,
+01:43 no links section here neither.
+01:47.99 Now, if we want the feature on
+01:50 but we want to change the key used in the Json for this feature,
+01:56.17 we can do that very easily
+01:58 we just need go back, enable the feature
+02:2.01 then set links equal to whatever value we want to use as the key for the feature.
+02:08 So here we're using links, but without the underscore
+02:11
+02:14 let's restart the server, and see what happens
+02:18 bam, feature is back on but this time
+02:20 we have customized the key used for the feature.
+02:24 We can also check the people endpoint,
+02:28 links is there without the underscore and the feature is back.
+02:33.17 It is worth noting that when you disable the feature,
+02:37.02 you're also losing the pagination feature because as you know,
+02:41.16 pagination links are included within the links section.
+02:44.67 This is probably worth considering
+02:46 you get a nice performance boost because you aren't doing any pagination.
+02:51 You don't have any links section,
+02:53.55 but you are also losing some valuable information for your clients.
+02:58.95 Finally, keep in mind that you can also
+03:03 switch the feature on and off at a local level,
+03:05 so here we have the feature on globally,
+03:8.57 but we can go to the people endpoint for example,
+03:11 and set it to off, if we don't want it at this endpoint.

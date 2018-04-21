@@ -1,0 +1,95 @@
+00:0.54 So far, we've been working at the people endpoint
+00:3.10 which means that all the commands that we issue against this endpoint
+00:8.10 are relative to the word collection, so when we send a get request
+00:12.10 we get back an array of documents,
+00:15.10 if we do a delete operation and pay attention to this one,
+00:19.10 we are going to delete all the documents in the people collection.
+00:24.10 When we do a post, we are adding a new document to the collection,
+00:27.10 but what if we want to edit a single document?
+00:32.11 Well, then we have to eat the document endpoint
+00:35.11 and the document endpoint by default is
+00:37.11 simply the general endpoint / the document id
+00:41.11 as we can see here in the ahref for the single document,
+00:46.11 so if I do a get at this endpoint which is people
+00:50.11 and document with the id, and it is a get,
+00:58.11 what I get back is the full document as you can see,
+01:02.11 we have the unique id, of course,
+01:5.51 the data, metafileds, etags, and if you look at the links,
+01:09.11 we now get the parent, self, and also the collection relative to the document.
+01:17.21 Now that we know how to access a single document
+01:20.11 we can talk about edit operations on the document.
+01:24.11 Now, typically you have three kinds of operations that you want to do
+01:28.41 besides reading the document
+01:30.11 one is editing single fields maybe or multiple fields.
+01:35.35 The second one is replacing the document completely with a new copy of it.
+01:39.91 And the third, of course, is deletion of the document.
+01:43.97 So, in Rest world, when you want to do an edit operation,
+01:47.95 what you issue is a patch command.
+01:50.96 When you want to replace a document you use the put command,
+01:55.11 and when you want to delete, off course, you use the delete command.
+01:59.11 Now, all of these three commands are supported by Eve.
+02:4.63 We can try, for example, an edit operation, so let's try a patch,
+02:09.11 we go to the body of the request and we say
+02:13.11 that we want to add the last name to our document,
+02:17.99 So the document is existing already,
+02:20.39 we simply want to edit it by adding a new field,
+02:24.11 we already added the last name to the schema for this endpoint,
+02:29.11 so we should be good to go.
+02:32.23 But, if we try this patch operation on the document
+02:37.53 we get an error, and we already saw this error
+02:41.11 back when we were working on the people endpoint
+02:44.11 and the collection endpoint, as you might recall,
+02:47.11 and the reason why it doesn't work here at the document endpoint,
+02:51.11 is the same reason it didn't work at the collection endpoint,
+02:54.86 which is— Eve by default is a read-only,
+02:58.11 so yes, we did enable write operations on the collection endpoint,
+03:02.11 but if you remember, we only enabled the get, post and delete commands,
+03:08.11 patch is a document command
+03:12.03 and we still need to enable it,
+03:14.11 and the same holds true for, off course, put and delete,
+03:18.11 so let's see how we can fix this.
+03:21.11 Back to our Code editor, and as you see,
+03:25.11 here in the comment of our resource method is
+03:27.11 the methods allowed at the resource or collection endpoint.
+03:32.29 What we need now is a new keyword
+03:34.11 and it is item methods, this is again,
+03:39.11 an array of methods allowed at the document or item endpoint.
+03:45.11 By default, this is the value of this setting,
+03:49.11 we can of course add edit commands like patch, put and delete.
+04:3.81 Again, get is read, patch is edit,
+04:05.11 put is replace and delete is, well, delete.
+04:10.11 Let's save them, and relaunch our server.
+04:16.11 Now if we go back to our client and try our patch command,
+04:21.11 we get a different error message, but this is expected.
+04:27.11
+04:31.11 If we look at the error message, at the human readable message
+04:34.11 we have a clear explanation of what's going on,
+04:38.11 to edit a document, its etag must be provided using the if match header.
+04:44.36 So what this is telling us is that this request is not complete.
+04:49.05 Something is missing, and what is missing is
+04:51.11 an if match header, and the value of this if match header
+04:58.11 is supposed to be the etag for the document.
+05:01.11 Now we don't have it right now, because we attempted a patch
+05:04.11 but we need to go back, get our document,
+05:10.11 copy the etag, and now that we have it, we can try again our patch,
+05:15.11 and provide a valid value for the if match header.
+05:19.11 Okay, let's try again.
+05:23.9 This time we got our patch in and the document was updated.
+05:27.92 If we go and do a get of the document,
+05:30.99 we now see that it has both, the first name and the last name.
+05:34.44 So our patch went in.
+05:37.11 So what is this if match check all about?
+05:40.11 Well, this is concurrency control work.
+05:43.11 We want to make sure that only the client with the exact same etag
+05:49.11 as the one stored on the server can perform an edit operation.
+05:53.86 So the if match header check
+05:56.11 is there to prevent old versions of the document
+06:0.12 to overwrite the newest one stored on the server.
+06:05.11 This is a powerful feature, you probably want to keep it enabled,
+06:8.41 but if you don't like it, you want to adopt let's, say,
+06:11.46 an optimistic approach over concurrency.
+06:15.66 You can simply disable your concurrency control feature,
+06:19.16 you do that by going back to your editor
+06:22.11 and simply setting if match to false,
+06:27.4 . If you do this, you need to add an if match header
+06:33.11 every single time you perform an edit operation on a document.

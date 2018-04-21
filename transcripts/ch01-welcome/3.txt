@@ -1,0 +1,8 @@
+00:01 Of course, I am going to show you a lot of code.
+00:03 I strongly suggest that you build your own little experimental repo
+00:07 and then try to carefully reproduce and improve on my examples,
+00:10 but do know that everything you see me type
+00:13 is also available on github for you to fork, star or download and play with.
+00:18 You will find all the course material at
+00:20 talkpython/eve-building-restful-mongodb-backend-apis-course.
+00:25 So please got here and make sure you star or fork it right away.

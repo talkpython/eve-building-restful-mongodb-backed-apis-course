@@ -1,0 +1,77 @@
+00:00 In this lecture, we are not going too deep
+00:02 into what Mongo is and how it all works.
+00:05 You can find all sorts of information about it on the internet.
+00:09 There is also a Mongo installation lecture
+00:11 in the appendix should you need details
+00:14 on how to properly set it up on your machines.
+00:16 You might be wondering though
+00:19 why Mongo was picked as the default db engine for the Eve framework,
+00:22 when there were in fact so many other options around,
+00:25 especially in the SQL ecosystem.
+00:28 After all, when the Eve project was started,
+00:31 Mongo certainly wasn't as popular as it is today.
+00:35 In fact, the No SQL world have just surfaced on the public scene back then.
+00:40 In hindsight, I believe it proved to be a great choice,
+00:44 but allow me a few minutes to explain why I thought
+00:47 right from the beginning that Mongo was going to be
+00:50 a perfect match for a RESTful service.
+00:53 Mongo stores data in flexible Json like documents,
+00:57 meaning, fields can vary from document to document
+01:01 and data structure can easily be changed over time.
+01:05 But more importantly, as you know,
+01:07 RESTful services usually communicate with the clients via Json.
+01:11 So let's look at a typical get request,
+01:15 we have a client somewhere and it is accepting the Json media type.
+01:19 On the other side, we have Mongo,
+01:21 which is storing native Json documents as well.
+01:25 So maybe we can push directly to the clients from Mongo?
+01:29 Ideally, yes, there is little working wall
+01:34 as Python dictionaries naturally map to Json documents.
+01:37 The same holds true when clients are writing to the service.
+01:42 Here is a post request,
+01:45 Json coming from the client that is received from the service
+01:48 validated and then stored on the database.
+01:52 And what about queries?
+01:55 Well, it turns out that in Mongo
+01:58 queries are also represented as Json style documents.
+02:01 Here we are looking at a query performing in the Mongo shell,
+02:04 now, if you were in SQL world,
+02:07 this will be a typical select all documents from table things
+02:11 where x=3 and y=4.
+02:15 As you can see, the actual query is in fact a Json document itself.
+02:20
+02:22 A Json document is the perfect candidate for a URL query definition, isn't it?
+02:27 We still need to perform some validation,
+02:30 then, we can simply forward a query to the database.
+02:33 The result will be of course a Json document again.
+02:37 So as you can see, we're essentially going to have Json all along the pipeline,
+02:43 or, if you will, Mongo and the REST service are speaking the same language
+02:48 and in general, mapping to and from the database feels more natural.
+02:52 There is no need to involve any kind of ORMs
+02:54 which would end up making the service more complex
+02:58 and more importantly for us, will probably have an impact on performance.
+03:03 As we mentioned already, Mongo is schemaless.
+03:06 Now, this doesn't really mean that we don't need a schema.
+03:10 most likely, we still want to validate what is coming into our system
+03:15 so we want to define some validation rules for known fields
+03:19 we will see that Eve actually also supports
+03:22 storing of unknown fields and documents.
+03:25 But that is an opt in.
+03:27 By default, when you are storing data on your service
+03:29 you're guaranteed that unknown fields are rejected,
+03:32 still, not having to worry about updating your db schema
+03:37 as your service and requirements evolve
+03:39 is very powerful and allows for less downtime
+03:42 not to mention migration headache.
+03:46 Lastly, let's talk about transactions.
+03:48 One complaint that you usually hear about most No SQL databases
+03:52 is that they are not transactional.
+03:54 That can be severely limiting depending on your usecase.
+03:59 But, if you think about the REST architecture
+04:02 and how the first principle of RESTful design
+04:05 is the total lack of state on the service,
+04:07 you see how transactions don't really pretain to REST services.
+04:11 You usually end up performing as more atomic updates anyway
+04:15 because that is the nature of REST services.
+04:18 So yes, Mongo doesn't have transactions,
+04:21 but RESTful services don't usually have them either, so no big deal there.

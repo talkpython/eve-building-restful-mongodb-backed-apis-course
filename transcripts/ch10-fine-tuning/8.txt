@@ -1,0 +1,128 @@
+00:00 Authentication is the mechanism
+00:02 by which systems securely identify their users.
+00:06 Eve supports several authentication schemes,
+00:10 like basic authentication, token authentication, and also HMAC authentication.
+00:15 Authorization on the other hand is the mechanism
+00:18 by which a system determines what level of access
+00:21 a particular authenticated user should have
+00:24 to access resources controlled by the system.
+00:27 In Eve, you can restrict access to all API endpoints or just a few of them,
+00:31 you can protect some http verbs while leaving others open.
+00:36 You really have a lot of options.
+00:39 Security is one of those areas where customization is really important,
+00:44 this is why you are provided with a handful of base authentication classes
+00:49 from which you inherit in order to build your own authorization logic.
+00:54 Let's see how it's done.
+00:57 Yes, in order to get authentication going on our service,
+01:01 we need to get back to coding, which is probably good news
+01:05 after all this time spent on a boring settings file.
+01:08 First, we need to import from the eve.auth name space
+01:15 and what we want to import is the BasicAuth class.
+01:19 Once we have the class imported, we need to inherit from it.
+01:22
+01:28 Here it is, as you can see, I created my own class
+01:33 which is a subclass of the BasicAuth, class provided by the framework.
+01:38 And the only method I need to overwrite is check auth,
+01:42 it gets a number of arguments, the most interesting ones
+01:47 are the first two, username and password,
+01:50 then we have a few more, allowed roles,
+01:53 which is used when you do role based access control
+01:57 something we won't cover in this course,
+01:59 resource is the name of the resource
+02:02 or endpoint that the client is hitting
+02:04 and the method is the http method being performed with the request.
+02:10 So, every time a request comes to the server,
+02:14 the check auth method is executed, and within the method,
+02:20 we implement the custom logic we need to authenticate the user.
+02:24 now in this example, it is super simple, we are just making sure
+02:27 that the username is admin and the password is secret.
+02:30 Now that the authentication logic has been implemented,
+02:35 all we need to do is pass our class to the Eve instance
+02:40 and we do that right here where we are passing the custom validator
+02:44 we can also set the auth argument which defaults to none,
+02:49 so no authentication, to our custom authentication class.
+02:54 We save, go back to Postman and try to access the people endpoint
+03:01 which has been freely available, until now,
+03:06 but now we're getting a 401 error, not authorized please provide proper credentials.
+03:14 Now, if you go to the auth tab here in Postman,
+03:17 we can pick basic authentication and pass our username,
+03:23 let's try with secret and password which should not be right,
+03:29 because we are testing for admin and secret as password.
+03:33 We can preview the request, if we go back to the headers,
+03:37 we see that authorization header has been added to our request
+03:41 and it has our username and password encoded,
+03:45 let's try and send the request over, we're still getting an error.
+03:50 That's right because we got the password wrong,
+03:54 let's try with secret and send a request over, and this time it works.
+04:01 So now all the endpoints are protected by our custom class and custom logic,
+04:10 let's try works, of course, we get an access,
+04:15 but if we go with no auth, again, we get an error
+04:21 whereas if we go back to basic authentication, it works.
+04:27 Okay, let's go back to the editor and review what we've done so far.
+04:32 We imported the basic authentication class from the framework,
+04:36 then, we inherited from it in our own custom class
+04:40 and we overwrote the check auth method
+04:44 it is receiving a number of arguments,
+04:46 and we use the username and password from the request
+04:48 to make sure that they match our expectations.
+04:51 If they do, we return a true value, otherwise, we return a false value or nothing.
+04:57 That's it, we then pass our class to the Eve instance.
+05:01 Now our authentication logic is very simple,
+05:06 we are protecting all the endpoints with the same logic,
+05:09 but because we are receiving resource,
+05:11 which is the endpoint and the method,
+05:14 we can actually be more fine grained if we need,
+05:18 for example, we might have a different logic if the endpoint is people
+05:24 we might do some kind of check
+05:28 whereas for any other endpoint we use the general logic,
+05:36 the same might be true with the method,
+05:39
+05:53 so if it is a write operation, post or edit, we do some kind of different check,
+05:58 maybe only some super user is allowed to write,
+06:03 let me also add put and delete, you get the point.
+06:13 Now branching on every endpoint can get ugly really fast,
+06:19 imagine if you have 100 endpoints on your API
+06:22 and you actually want to implement
+06:25 a different authentication schema for every endpoint,
+06:28 it is not going to look pretty, and also not easy to maintain.
+06:31 There should be better ways to handle authentication.
+06:35 And in fact, there are.
+06:37 Let's see at one of them, let's go back to our basic logic here,
+06:44 what we can do is go to our settings file
+06:49 and import basic authentication class,
+06:55
+06:59 and then, within the endpoint definition,
+07:03
+07:06 we can set the authentication class to be used for the single endpoint.
+07:11 So if we do this, only the people endpoint will use this class,
+07:16 let's go back to the app and get read of the global authentication class.
+07:23 So what we are doing here is tell Eve,
+07:27 look we have no authentication for the endpoints
+07:31 no global authentication for the endpoints,
+07:34 but, we do have authentication schema and class to be used
+07:39 whenever a client requests an access to the people endpoint,
+07:44 let me go and illustrate that with an example,
+07:49 now that the server has restarted,
+07:51 if we try to hit the people endpoint with a get request
+07:54 we should get please provide proper credential message,
+07:59 that's right, let me fix the username and try again.
+08:04 Boom, it works.
+08:06 But, if I go to the works endpoint
+08:08 which should have no authentication at all, it works.
+08:13 So this way you can write custom classes,
+08:17 one class for every endpoint, or of course,
+08:21 you might have the same class shared between different endpoints,
+08:24 but the point is that you keep your classes super simple,
+08:28 you only implement the logic needed by the class,
+08:31 this could be called something like people authentication,
+08:34 this is much better, isn't it?
+08:37 There is a lot more about authentication and authorization in Eve,
+08:43 I really invite you to go and visit the
+08:47 authentication and authorization documentation on the website
+08:51 we only touched the basic features basically,
+08:55 just know that you can also implement token based authentication,
+08:59 HMAC authentication which is what Amazon is doing with S3 service
+09:04 and you also have a role based access control,
+09:07 user restricted resource access, auth driven data based access,
+09:12 auth 2 integration, go and have a look at it
+09:16 so you can better access what you really need for your specific use case.

@@ -1,0 +1,23 @@
+00:0.59 The future of the Eve project looks bright,
+00:2.6 I have so many new, exciting and interesting features planned for the future.
+00:07 However, maintaining and developing new features to projects of this scope
+00:12 takes a considerable amount of time.
+00:15 Also, I do my best to offer support on Stack Overflow
+00:19.31 and mailing list, email, and that takes a lot of time too,
+00:23.02 and that's been going on for like five years now.
+00:27.52 So far, I've been working on Eve and Cerberus in my free time.
+00:31.44 I am now exploring the possibility
+00:33 to dedicate some or all of my working time to Eve, Cerberus and their ecosystem.
+00:39 If you run a business and it is using Eve or Cerberus in a revenue generating product,
+00:44 it would make perfect business sense to sponsor their development.
+00:48.94 It ensures the project that your product relies on
+00:51 stays healthy and actively maintained.
+00:55 It can also help your exposure in the Eve community
+00:58 and it makes it easier for you to attract Eve developers.
+01:02 Of course, if you are an individual user,
+01:04 you're also welcome to make a single donation on PayPal
+01:09 if either the project has helped you in your work or personal project,
+01:14.07 just go to Python-eve.org/funding
+01:16 and you'll find how you can contribute to the project,
+01:20 either by joining the campaign on Patreon
+01:22 or simply with the one time donation over PayPal.

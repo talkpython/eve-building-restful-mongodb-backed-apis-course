@@ -1,0 +1,29 @@
+00:00 Our small app is now capable of responding
+00:03 to get request sent to the people endpoint.
+00:06 But when a client performs a request like that,
+00:09 or it gets back as an empty array, and some metadata,
+00:13 so how do we send data back to the client?
+00:16 Well, the first thing we want to do probably is
+00:19 connect our app to an actual database
+00:22 because so far, we haven't done that yet.
+00:26 So let's go back to our code editor, and in the settings file,
+00:30 we want to add a new keyword,
+00:32 and not surprisingly, it's going to be mongo uri.
+00:36 And this is going to be the connection string to our db
+00:40 so mongo db-- local host, here we go,
+00:49 so this is a standard Mongo uri,
+00:52 where we are connecting to the Mongo running on local host on port 2017
+00:57 and db name is going to be Eve course.
+01:01 Save, of course, your file and you also have to relaunch your app
+01:06 because the settings file is imported at startup time
+01:10 and then if you change it, now it changes the Eve 01:21
+01:13 if you are running Flask in debug mode,
+01:16 so when you make a change to the settings file,
+01:19 you also have to remember to relaunch your app.
+01:24 Let's go back to our client,
+01:26 and just to make sure that everything is working fine,
+01:28 perform our request, and yes, everything is fine,
+01:32 and we are still getting an empty array
+01:34 because we don't have any data on the database,
+01:36 even if it is connected, there is no data store in there.
+01:39 So I guess it's time to start writing on our db.

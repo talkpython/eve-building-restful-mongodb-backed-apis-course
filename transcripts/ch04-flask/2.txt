@@ -1,0 +1,117 @@
+00:00 Let's build our first Flask application.
+00:03 First of all, we want to activate our virtual environment,
+00:06 so let's just source our activation script
+00:09
+00:14 and here we go, as you can see
+00:16 the virtual environment is now active
+00:18 and we are sitting in our working folder.
+00:21 We can now launch our text editor
+00:24
+00:27 we already have a hello.py script in here.
+00:31 The first thing I want you to note
+00:33 is that we are dealing with just 6 lines of code,
+00:36 actually 4, if we don't factor in the import line here and the blank line,
+00:41 so we are speaking about 4 lines of code
+00:43 for a fully functional Flask app.
+00:46 I guess this is where the famous, simple and elegant Flask definition comes from.
+00:54 Let's review our code line by line.
+00:56 On the first line, we are importing a Flask class from the Flask package.
+01:00 This class will be our wsgi application.
+01:03 On the second line, we are creating an instance of our class
+01:06 and as you can see, we are passing an argument.
+01:09 This is the name of the application module or package
+01:13 and it is needed so Flask knows
+01:15 where to look for templates, static files and so on.
+01:18 On line 4, we are using the route decorator to tell Flask
+01:25 what URL should trigger our function.
+01:28 So any time the home page is hit by the browser
+01:31 the hello function will be triggered
+01:35 and the function itself is super simple,
+01:38 it is simply returning a hello world message.
+01:41 So now our script is ready and we want to see it running, right?
+01:45 So how do we do that?
+01:47 We could go back to our terminal window
+01:49 and launch the built in Flask server,
+01:52 but we can do better than that
+01:54 because within code we have an integrated terminal window and we can use it
+01:57 let's just go to the view menu and click on integrated terminal,
+02:02 and here we go, we have a new window with the terminal.
+02:05 And as you can see, we are already in our working folder
+02:08 and in fact, if we check the contents, we see our hello.py script right there.
+02:15 Now, before we can continue,
+02:17 we need to activate the virtual environment, so let's do that.
+02:20
+02:26 Now we're ready, and by the way,
+02:29 by the the time you see this screencast,
+02:31 you probably want to activate the virtual environment yet again
+02:34 because as you might remember,
+02:36 we already activated it before launching the editor.
+02:38 There is a ticket open on the github repository for Visual Studio Code
+02:43 and a fix to go online with the next update in February 2018.
+02:50 So now that the virtual environment is ready
+02:53 we can try and launch our script.
+02:55 To launch the built in server, all we need to do is issue this command
+03:01 Flask run, and if we do that, it will fail,
+03:05 and the reason is that we didn't tell Flask which is the launch script,
+03:09 we can do that by simply exporting the Flask app variable
+03:16 and we set it to our scrap
+03:20 Okay, let's try again, Flask run,
+03:24 there we go, as you can see, now Flask is serving the app hello
+03:28 on local host port 5000.
+03:33 Let's go and try it out.
+03:35
+03:41 Hello world, this is nice, we have a working website up and running
+03:47 with just six lines of Python code
+03:50 and the built in Flask server is serving it to us.
+03:53 How can we improve it?
+03:55 Well, first we might want Json as a response
+03:58 since we are going to build RESTful APIs anyway,
+04:01 so how do we do that?
+04:03 Let's go back to our app, it turns out
+04:07 that Flask comes with a very powerful jsonify function
+04:13 so we can leverage it, and in our function
+04:18 we simply go and call jsonify and then we need to pass
+04:23 a Python dictionary, so maybe something like this,
+04:28
+04:33 it should be good enough, let's save,
+04:37 go back to our browser and refresh.
+04:40 And nothing happens. Why is that?
+04:42 Well, the reason is that we didn't relaunch our server
+04:45 so let's stop the server and launch it again,
+04:51 so it can pick the new script, and here we go, as you can see,
+04:57 now we're getting Json back as a response to our request.
+05:00 Now, powerful, but it is quite annoying
+05:03 that we have to stop the server and relaunch
+05:05 every single time we make a change in our scripts.
+05:09 Well, luckily for us,
+05:11 Flask comes with a built in debug mode, and we can activate it
+05:14 by simply setting an environment variable, so let's do that.
+05:18 Again, let's stop the server and export Flask debug
+05:26 let's switch this variable on.
+05:31 And now, let's run the server again.
+05:34
+05:37 As you can see, we get a slightly different message now
+05:40 the Flask app is running but it is forced to debug mode,
+05:45 so now, any change we do here, it will be picked up by the server.
+05:51 Let's try for example and add a new route—
+05:54
+05:59 how about we make a log in page,
+06:03
+06:13 okay, let's save, and we can see that the server here
+06:18 has detected a change in hello.py and it is reloading,
+06:23 in fact, the server restarted
+06:25 and let's see if we go back and just go to the login page
+06:32 there it is, we didn't need to stop the server,
+06:36 so for example, let's say that we change the contents of the string
+06:42 in welcome, you are logged in,
+06:51 save, again, the server restarts, we go back, refresh,
+06:55 here we go, back to our script,
+06:58 we only scratched the Flask surface here,
+07:00 of course, there is a lot more to Flask to be seen
+07:04 but I believe in a few minutes, we achieved quite a lot
+07:07 we now have our Flask site up and running,
+07:10 we know how to handle growth with Flask
+07:13 and we also learned how to import some very nice functionality from Flask.
+07:19 Of course, we learned about the built in server and the debug mode.
+07:23 All these features will come in handy in the next segments,
+07:27 when we move on to Eve.

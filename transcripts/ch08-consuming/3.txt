@@ -1,0 +1,154 @@
+00:01 In this lecture, we're going to build a Python client
+00:03 and we will be using it to consume our RestFul service.
+00:06 Now, we've already built a Javascript client,
+00:10 actually a web page in the previous lecture,
+00:12 now we're going to build a Python client,
+00:15 so it is probably a good idea to create a folder
+00:18 in which we will be storing our clients,
+00:21 let's move the web page htm file within the new folder,
+00:25 and then add our client.py file
+00:31 and this is where we will be writing our Python code.
+00:35 Now, whenever we're writing some Python code
+00:39 which is supposed to be launched from the command line,
+00:41 we usually start with the same code which is basically a test
+00:44 if the module name is equal to main and then to something,
+00:48 we could type that code, but we could also
+00:51 leverage one of the many Visual Studio Code features
+00:55 which is code snippets. If you've used other editors and ides
+00:59 you've already probably been using them, in Visual Studio Code
+01:02 you hit control and space and then you use intellisense
+01:05 to get where you want to be, so for example,
+01:08 in this case I am writing if main code snippet for a main function,
+01:12 let me just press enter and here we are with our code ready to go.
+01:16 So, when this module is launched from the command line,
+01:21 as the main module that main function would be invoked,
+01:23 right now the main function is empty, which is fine and we're good to go.
+01:28 We now need a couple of imports, here they are,
+01:31 so we're importing Json from the standard library and the request.
+01:34 I don't know if you know about request already,
+01:38 if you don't, you can go here there is a URL to the homepage,
+01:42 it's very cool and basically the go to tool in the Python world
+01:47 for whenever you need to do some requests over the internet
+01:51 just go and pick request and download it, everybody is using it,
+01:55 so if you aren't, hurry up and join the flock.
+01:59 Now, let me add a helper method, this will come in handy later,
+02:04 this is a very simple function, it will simply return the endpoint URL,
+02:10 we provide the kind of a point we want to hit,
+02:14 and it will just return a string, with the complete URL to our endpoint.
+02:19 Now, if we go back to Postman, and check our people endpoint,
+02:25 we see that there are a number of documents there,
+02:28 so an interesting experiment might be write a function
+02:32 which will delete all the documents at the endpoint.
+02:36 Yes, it can be dangerous, but we're bold, so let's try that.
+02:41 Here it is, delete all people, so as you can see on the first line,
+02:44 this is basically a one liner, we're using
+02:46 the delete method of the requests library,
+02:48 delete takes an URL to the endpoint where the delete should happen
+02:53 and here our helper method is very useful,
+02:57 just ask for the full URL to the people endpoint.
+03:00 If in the future our client will be hitting
+03:03 our remote instance instead of local host,
+03:06 we won't need to modify our function here,
+03:09 we only need to update our helper method
+03:13 by changing the http address of our restful service.
+03:18 As you can see, delete returns a response object
+03:22 which has many properties, one of them being the status code,
+03:25 so in line 11, we are just printing the server response
+03:29 to make sure that everything works as expected.
+03:32 Alright, we can now go to line 15 and replace this pass
+03:37 with something more useful like maybe calling delete all people,
+03:43 so now our script is ready, when we launch it,
+03:47 the main function here will be called
+03:50 and it will launch the delete all people function for us, let's save,
+03:55 now we need to launch our script.
+03:57 Now, if we look at the terminal here, we have our app running,
+04:01 so what we really need is a new terminal,
+04:04 we also want to activate our virtual environment in this new window.
+04:12 If you haven't, and you probably haven't,
+04:15 you should also run pip install request,
+04:18 because it won't be installed in your environment,
+04:21 it is in mine, if you launch it,
+04:24 I get an already satisfied requirement message,
+04:27 this is because I wanted to show you intellisense for request
+04:30 so I went ahead and installed it ahead of registering these screencasts,
+04:35 but yes, you should go and pip install request
+04:38 otherwise your script won't be running.
+04:41 Now, let's try Python clients, client.py, let's see what happens.
+04:51 Great, as you can see, people deleted
+04:54 server response was 204, which is good,
+04:57 this is what we were expecting.
+04:59 Let's go back to Postman and see
+05:01 if we actually deleted our documents,
+05:05 yes, the response is ok and as you can see,
+05:08 the items array now is empty,
+05:10 so we actually deleted the people from our Mongo db instance.
+05:16 Great, let's switch back to our fist terminal window
+05:22 where the server is running and we can see
+05:24 the sequence of our commands, this one is the delete,
+05:28 which was used by our client with the response of course,
+05:33 and then, the get we did with postman is nice, isn't it?
+05:38 Alright, now that we can delete,
+05:40 how about inserting some documents?
+05:44 Let me paste some more code here,
+05:46 specifically the post people function.
+05:50 Now, as you can imagine, this is slightly more complex
+05:53 than the one liner we wrote before, but not too much, actually.
+05:57 So we have an array with two documents
+06:00 because if I didn't tell you already, Eve supports bulk inserts by default,
+06:05 which means that with a single request,
+06:07 you can store more than one document,
+06:10 actually, an unlimited number of documents.
+06:12 So here we are going to send a post request for two documents,
+06:17 the actual command as you can see is very similar
+06:20 to the delete one we did before, request.post
+06:26 post requires a URL again to the endpoint data
+06:30 to be posted, and some more options.
+06:34 Our helper method gives me the URL for the people endpoint,
+06:37 and our data array is simply dumped as Json,
+06:41 and then we need to provide a header and specifically,
+06:45 we need to tell request or I should say we need to tell our server
+06:50 that the data coming in is Json.
+06:53 And that's it, then we're printing the response status code
+06:57 as we did before with the delete command.
+07:00 Let's see what happens, if we after deleting all the people at the endpoint,
+07:05 post some people to the same endpoint.
+07:09 You see this way every time we launch our script,
+07:13 we clean our endpoint and then we post,
+07:15 let's go back to our terminal window and launch our client again,
+07:25 alright, first comes the delete with 204,
+07:29 which is no content, it is what we expected,
+07:31 and then, people had been posted
+07:34 and the response was 201, which is created, so it looks good.
+07:40 Let's go back to Postman and check the people endpoint,
+07:43 it was an empty endpoint, now it should have two documents,
+07:47 here they are, this is an array with two documents, looking good.
+07:51 Back to our code, how about we now get data from the server,
+07:56 let's do that, get people function, one liner again,
+08:01 request.get url for people
+08:06 so get at the people endpoint and as you guess already
+08:10 the response status code is printed on the second line.
+08:14 Get people, so first, delete everything,
+08:18 then post people and then download,
+08:21 now if we download these guys here
+08:23 we probably also want to see them
+08:26 to make sure we downloaded the right data,
+08:28 so we might do something like this,
+08:30 so if the status code is actually ok,
+08:33 we get the Json from the response here,
+08:35 and of that Json, we get the items array,
+08:39 we print the number of people in this line
+08:42 and then we iterate over the people array
+08:45 so for person in people and for every person we print first name
+08:50 and the unique id of the person, it should be good, let's save,
+08:56 and again, launch our client.
+09:01 So we got delete in, then we got a post in and finally,
+09:06 we downloaded from the server with a ok response.
+09:10 Two people were downloaded, one was John with this id
+09:13 and then it was Mike with this id. Great.
+09:17 So to wrap it up, I will say that all in all
+09:21 writing Rest clients in Python is really easy,
+09:24 and this is mostly thanks to the request library
+09:27 which does most of the work for us.
+09:29 If you think about it, our functions here are just one or two liners,
+09:34 and if the get people which is the most complex
+09:37 has only one meaningful line which is this one, the Rest is just parsing.

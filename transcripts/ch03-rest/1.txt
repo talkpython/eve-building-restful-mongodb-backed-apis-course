@@ -1,0 +1,133 @@
+00:01 So what is Rest all about?
+00:03 At conferences or even while talking to my colleagues
+00:06 I am often surprised by how much confusion there is
+00:09 even to these days about what really Rest is.
+00:12 In this section we're going to talk a little bit about Rest and RestFul web services
+00:17 just to make sure that we understand
+00:19 what kind of service we're going to build with Flask and Eve.
+00:22 The first thing you need to understand and embrace
+00:24 is the surprising fact that Rest is not a standard
+00:28 and also, it is not a protocol.
+00:31 Rest is more really an architectural style for networked applications.
+00:36 Now, architectural style may sound cool and probably is
+00:40 because by not imposing hard to use, it allows for great flexibility.
+00:47 On the other hand, quite frankly, it sucks.
+00:50 Probably, on the internet, there aren't two APIs
+00:53 who share the same interface or behavior,
+00:56 most of them however have tier
+00:59 in some way or another to Rest principles.
+01:03 So let's review a few of these important principles.
+01:07 First, and probably the most important is the resource
+01:10 or the source of a specific information.
+01:13 By the way, in Rest terms, a web page is not a resource
+01:17 it is rather the representation of a resource.
+01:20 If you access your Twitter timeline for example
+01:23 what you are seeing there is a representation of the thoughts
+01:26 expressed by the people you are following;
+01:28 second important principle is the global permanent identifier,
+01:32 global being key.
+01:34 URLs allow us to access the very same resource representation
+01:39 from any place in the world
+01:41 which is not a small feature if you think about it.
+01:44 Third, standard interface.
+01:47 Rest was defined in the context of http
+01:50 and in fact, https are very common standard interface
+01:53 but very few people know that Rest could actually be applied
+01:58 to other application layer protocols.
+02:01 There is also a number of constraints
+02:03 that RestFul web services are supposed to be following
+02:07 stuff like separation of concerns,
+02:10 stateless, cacheability, being layered systems etc.
+02:15 We will get back to these in a few minutes.
+02:18 So in a way we could say that the worldwide web is built on top of Rest
+02:23 and it is meant to be consumed by humans
+02:26 while RestFul web services are also built on Rest
+02:30 and are meant to be consumed by machines.
+02:34 So let's review these Rest principles.
+02:38 The most important thing is that we're communicating over http
+02:42 we have a service, it's using http or https
+02:46 and it's explicitly using all the concepts and mechanisms
+02:50 built into the http itself.
+02:52 So status code, verbs such as get, post, put, delete,
+02:57 content types, both for the inbound data and the outbound data.
+03:01 There are many services out there
+03:03 that have been built technically on http as transport layer
+03:08 but they ignore all of these things and they aren't RestFul services at all.
+03:14 Next, the endpoints that we took into our URLs
+03:18 and this typically means that when we design our service
+03:21 we're thinking in terms of nouns.
+03:24 So maybe I'm designing a bookstore
+03:26 and I might have a books or works endpoint
+03:29 I wouldn't have a get books or add books or even books-add,
+03:34 no, you just have one single books endpoint
+03:38 and you apply the http verbs to modify them.
+03:41 Do you want to get all the books?
+03:43 We'll do a get request against books endpoint.
+03:46 Do you want to load the new one
+03:48 let's do a post request to that endpoint.
+03:52 So you combine these http concepts, codes and verbs
+03:56 and you apply them to these endpoints
+03:58 so really, the take away here is when you design these APIs
+04:01 you need to think in terms of nouns
+04:03 and what are the things being acted upon your system.
+04:07 Responses for your request should also be cacheable
+04:11 if the responses are cacheable
+04:13 you get a huge performance boost
+04:15 like in a get request against the books endpoint
+04:18 it might be served by an intermediate proxy server
+04:21 that cached the same response beforehand.
+04:24 We also want to make sure that our system is a layered one
+04:28 and what that means is that our service clients
+04:31 cannot see past our API surface.
+04:34 If our service is calling through other services
+04:37 and it's composing them to basically make up its own functionality,
+04:40 that should be opaque to our consumers.
+04:43 Our services should also be stateless
+04:47 we should be able to make requests, data response,
+04:51 and that's all we need to know.
+04:53 We don't log into the service
+04:55 and then do a batch of operations and then log out .
+04:57 If you have to carry that authentication
+05:00 maybe we have to pass some kind of token
+05:02 as a header value or something like that.
+05:04 RestFul service should have support for content negotiation
+05:08 so let's take our book example,
+05:11 the books-1 endpoint might give us book one.
+05:14 Well, how do you want that?
+05:17 Do you want that in xml, do you want that in Json,
+05:19 do you want maybe the picture that is the cover page?
+05:22 We could have a bunch of different endpoints
+05:25 but typically, these RestFul services
+05:27 will support content negotiation,
+05:29 so if we make a request to that url
+05:31 and we specify that we want Json,
+05:33 well we should get the Json representation of the book back,
+05:37 but if we specify one image png
+05:41 then maybe I should get back the cover picture for that book.
+05:45 So that's content negotiation.
+05:47 Finally, we have a thing called HATEOAS
+05:51 or hyper media as the engine of application state.
+05:54 Now this is less used,
+05:57 but some RestFul services do make use of HATEOAS
+05:59 and the idea is that I make a request to the service
+06:03 and in that response,
+06:05 maybe I have other URLs relative to the current endpoint,
+06:08 in my interaction with it,
+06:10 maybe I can follow those URLs further,
+06:13 so I go like, hay bookstore what do you got
+06:15 and it says well, I have books and I have authors
+06:19 and if I follow authors, maybe it says
+06:22 well, here is a bunch of people that you can go look at etc.
+06:26 Just think of a HATEAOS as a way
+06:29 for clients to explore and navigate the RestFul service
+06:32 by following its links.
+06:34 Alright, we've seen a number of constraints and features
+06:38 that RestFul services are supposed to be providing to clients.
+06:43 There are a lot of them as we've seen,
+06:45 some are more complex than others,
+06:48 but the good news is that when you build a service on top of Eve,
+06:51 all of these features and constraints are supported and already provided for you.
+06:57 You can, of course, switch some of them on and off,
+07:00 but in general, Rest assured
+07:02 that the web service you're going to build on top of Eve
+07:06 is going to be a fully featured RestFul web service.

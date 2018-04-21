@@ -1,0 +1,12 @@
+00:00 Postman is a Rest client and one of the best ones.
+00:04 It was started as a Chrome extension,
+00:06 then, it evolved into stand-alone app which you can use on all operating systems.
+00:11 I think it is the most used Rest client in the world right now,
+00:16 and I find it has the right number of features and options
+00:19 combined into intuitive enough user interface.
+00:24 It allows you to send requests, inspect and save responses,
+00:28 add tests and create workflows, should you need them.
+00:32 It is also free to use in its basic version, which is all we need for our course.
+00:37 Installation is easy, you know the three already,
+00:40 just click the right button, download the app installer,
+00:43 execute it, and you're good to go.

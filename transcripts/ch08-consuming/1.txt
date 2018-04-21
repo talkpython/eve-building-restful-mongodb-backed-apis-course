@@ -1,0 +1,89 @@
+00:0.0 Consuming a Rest service is normally done with some kind of client app.
+00:5.54 This might be a website using Javascript
+00:08 or a stand-alone app usually written
+00:11 in some kind of high-level language, such as Python.
+00:14 Another way to consume a Rest service is
+00:17 by using a dedicated Rest client.
+00:20.37 These are used during development of a service
+00:23 or while experimenting and playing around
+00:27 with some third party service just to get a hold of it.
+00:30.38 One very popular Rest client is Postman
+00:33 and we're already familiar with it.
+00:35.05 We'll only spend a few minutes looking at its main features
+00:40 so you can leverage them as you're developing and testing
+00:44 your very own Rest service.
+00:46 I also want to take this opportunity to mention
+00:49 how you should not be using a dedicated Rest client.
+00:52 More on that at the end of this lecture,
+00:55.86 We already know how to pick a request method
+00:59 and how to enter a endpoint URL
+01:2.21 so for example, here we want to hit local host 5000
+01:10 we've been doing this for a while,
+01:13 a nice feature is the history, we can click on this button here
+01:17 and it will show us a history off all the requests we sent to the service.
+01:23.79 This is very nice, especially when you are working with complex requests
+01:27 you don't have to retype them every single time
+01:31.09 insert the headers again, the body of the request etc,
+01:36 in this case, I'm calling back a request to our if demo on Heroku
+01:41 and as you can see here, we have a query, we're asking for page one.
+01:45 Another nice feature is the parameters form.
+01:49 Here you can insert your parameters filling up this form
+01:54 instead of going here and manually insert all your requests,
+01:58.43 for example, let's say that we want page one and max result,.
+02:1.7 which, by the way, is an option we haven't seen yet.
+02:6.5 Here, we're asking for the first page, or let's try with second page
+02:12 and every page must be of 10 records or documents,
+02:16.27 as you can see, as I type here, the URL is being updated for me.
+02:21.34 So less error prone and probably nice if you're doing complex requests.
+02:27 Let's go back to our history and recall a post request like this one here
+02:33 we want to play with the headers and body tabs.
+02:36.88 We already know that when we're working on the body of the request
+02:39 we can pick the raw format and we have several options here
+02:44 usually when working with a Rest service, we want to work with Json,
+02:49 if you need different formats for example xml, or text
+02:53 you can just take whatever you need here, and when you pick a format.
+02:58 usually Postman is smart enough to select the correct header for you
+03:02 as we saw already, the content type is already set for us.
+03:06 You might also switch to a bulk editor
+03:9.5 here you basically get a text editor,
+03:12 you can write whatever you want here without any form of validation.
+03:15 Another powerful for feature we'll be using in a little while is
+03:19.58 support for authorizations schemes.
+03:22 So we can go here and pick
+03:25 one of the many supported authorization and authentication schemas,
+03:30 for a example basic auth which is very common,
+03:32 insert our user name and password
+03:34 and then every time we click the send button an authorization header
+03:39 will be added for us, we can preview the request,
+03:41 if we click this button, we go back to the headers
+03:45 we see that an authorization header has been added for us
+03:49.2 and it is already encoded, very nice.
+03:49 Now the history option is very nice, but what's even better,
+03:55.22 we can save our requests,
+03:57 when you hit the save button, a form pops up
+04:1.59 and we can insert a request name and optional description,
+04:4.9 and what's even better is we can create collections.
+04:8.33 So, for example, let's create a collection for our Eve course,
+04:12.11 we will be saving our requests here and when we hit save,
+04:18.19 as you can see, we have two tabs here, history and collections.
+04:20.53 And our Eve course collection only has one request right now.
+04:26.71 When I click here, it will fill my request form.
+04:29.65 There are two more features I want to mention,
+04:33.09 and they are the tests and the prerequisite snippets.
+04:36.75 Now the idea here for both of them is
+04:39 that you can write some Javascript code before the request is sent
+04:43 or after the response had come back from the server,
+04:46 for example, here we have the snippet where we're testing that
+04:50 this string is included with the response text,
+04:54 so yes, this is a test, but really I don't believe this is a good idea.
+04:58.79 Tests should be sitting alongside your server code
+05:01 you want your test to be there,
+05:04 both Flask and Eve come with great support for unit testing.
+05:8.96 and if you keep your test with your server code
+05:10.98 you're guaranteed that wherever your code moves,
+05:13.82 your unit tests will follow, which is super important.
+05:18 Also, this will allow you to eventually
+05:21 enable continuous integration, which is super important.
+05:25.69 So please do your tests, write your tests
+05:28 and keep them with your server code,
+05:30.18 don't use an external third party Rest client to test your server.

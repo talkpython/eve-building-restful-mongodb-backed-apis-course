@@ -1,0 +1,96 @@
+00:01 In this lecture, we are going to build our first Eve application.
+00:04 Now, before we can start,
+00:06 we need to make sure that we meet the pre requirements
+00:09 the first one is that Eve must be installed on system,
+00:12 the second one is that Mongo must be installed, of course,
+00:15 and the third is that Mongo needs to be running.
+00:19 So let's activate our virtual environment
+00:21 which we built a while ago, in a previous lecture.
+00:26 As you can see here, the prompt has changed,
+00:29 so the virtual environments will be ready,
+00:31 let's just make sure that the Python we are going to use is the right one,
+00:36 yes, as you can see, we are going to run the Python
+00:39 which is stored within our virtual environment here,
+00:43 so we're good to go.
+00:45 Let's just make sure that Eve also is installed— yes it is.
+00:51 Now we need to make sure that Mongo is running,
+00:54 let me open a new tab on my terminal window
+00:58 and simply launch the Mongo server.
+01:02 So now everything is ready, Eve is installed and active,
+01:07 Mongo is running, and let's just open our code editor
+01:12 so we can start working on our code.
+01:14 We still have our hello.py script here
+01:17 if you remember, we built this script when we were looking at how Flask works
+01:21 we can get rid of it because
+01:24 we are going to build a new script for our app.
+01:29 First file we want to create is our launch script, let's call it app.py.
+01:36 First line, from eve import the eve class
+01:43 second line, we create an instance of this Eve class
+01:48 and then we save, now that we have our app object
+01:52 we want to instruct it on how the API should behave
+01:56 and it is always a good idea to keep behavior
+01:59 separated from the actual application context
+02:02 so let's create a new file and call it settings.py.
+02:07 Now, typical Eve app will always have a settings file somewhere
+02:13 this is where you basically instruct your API on how it should perform
+02:19 what is the API surface for example, stuff like that.
+02:22 Now, most settings in Eve come with default values
+02:26 you use the settings file to override the defaults
+02:29 should you need to update them
+02:31 but there is one single setting that has no default value
+02:34 and you have to set it otherwise your API won't even run.
+02:39 This is the domain setting,
+02:42 it is a Python dictionary, and it is basically where you design your API surface
+02:50 every key in this dictionary is an endpoint
+02:54 and every value is a Python dictionary itself,
+02:59 where you configure your endpoint behavior.
+03:03 Okay, let's save while we leave the people endpoint with no definition,
+03:08 let's review what we've done so far:
+03:12 we have an app.py script where we are importing the Eve class
+03:16 and creating an instance of it,
+03:18 and then we have a settings file
+03:20 where we're configuring the behavior of our API.
+03:24 Right now, we are only setting the domain keyword,
+03:27 and we are only defining one endpoint which is going to be called people,
+03:32 and it has no definition for the time being.
+03:36 By the way, notice how the settings all are upper case
+03:40 we will see that there are exceptions
+03:42 when we are setting the endpoint definition
+03:45 but right now we are setting the global settings like domain here
+03:50 and so it is all upper case.
+03:53 This is typical for all Flask applications, not just Eve.
+03:58 Believe it or not, we have all we need in order to be able to launch our app.
+04:03 Let's open the builtin terminal and activate the virtual environment,
+04:09 and now we can try and launch our app.
+04:13 If you remember from the Flask lecture
+04:15 what we want to do is export a Flask app environment variable
+04:22 and set it to our launch script which is app.py.
+04:26 Then, because we are in development mode
+04:29 and we want to debug our code,
+04:31 we also want to export the Flask debug variable
+04:38 so Flask will run in debug mode,
+04:40 and now we're all set and we can launch our app.
+04:45 Here we go, as you can see, Flask is listing at local host on port 5000
+04:52 and it is running in debug mode.
+04:55 Let's open Postman,
+04:59 our REST client and attempt a call to local host 5000
+05:07
+05:10 something is happening, it is actually sending us a response,
+05:14 as you can see, we get ok response status
+05:18 and yes, we have a payload here
+05:21 because we are hitting the homepage
+05:23 we get basically navigation information
+05:25 so the links to the child node and, of course, this is an array
+05:30 and we only have one endpoint and it is, of course, called people.
+05:34 So let's try and hit the people endpoint
+05:40 and here we go, as you can see we get again
+05:42 an ok response status from the server
+05:46 and this time the payload is more complex
+05:49 this is because we are hitting a proper endpoint
+05:51 and it is exactly the one we configured in our settings file,
+05:56 the identity items array is empty,
+05:58 the links node has a reference to the parents node
+06:01 which is our homepage with the title and its URL
+06:06 and then there is a reference to the endpoint itself.
+06:09 The meta node is telling us that we are on page 1,
+06:12 and we have a total of zero documents available.

@@ -1,0 +1,71 @@
+00:01 I want to mention a few settings that will allow you
+00:03 to fine tune and customize the query behavior of your service.
+00:06 First, you may want to use a different grammar.
+00:10 For example, you may want to use find instead of where
+00:13 and order instead of sort.
+00:15 That's very easy, just change the corresponding default settings. Let's see how.
+00:22
+00:27 Query where and query sort allow you to change the keyword
+00:31 that clients will use to perform queries on your server,
+00:35 so if we save this change, restart
+00:39 and go back to Postman, we should see a difference.
+00:43 Now a query like this can go by find and order by, it works as expected.
+00:56 Some time you might want to disable filters altogether,
+01:00 or you might want to just pick which fields are searchable and which aren't.
+01:05 You control which fields are searchable
+01:07 and which aren't with the allowed filter setting
+01:13 which defaults to a star, which means everything is searchable.
+01:21 If we empty the list, we are basically saying Eve
+01:27 I don't want filters on my server,
+01:30 clients are not allowed to perform any kind of query.
+01:33
+01:36 If we fill this list with field name,
+01:39 we are whitelisting the fields we want to be searchable,
+01:43 so for example, last name, this list is telling Eve
+01:48 that we only want the last name field to be searchable on our endpoints.
+01:53 However, this is a global setting, as you can tell by the uppercases here
+01:58 so it doesn't really make a lot of sense
+02:01 to have a list of fields in the global settings
+02:04 because this will apply on all of our endpoints
+02:07 and documents are going to have a different mapping depending on the endpoint
+02:12 So you probably want to do these at the local level
+02:15 here in the people endpoint,
+02:18
+02:21 we define that last name is the only searchable field
+02:25 and then at the global level, we either want to disable filter altogether
+02:29 or enable them by simply not writing this setting at the global level
+02:36 because the default is already the star which means
+02:39 all fields are searchable at all endpoints
+02:42 whereas if we go with the empty list,
+02:44 we are disabling filters at all endpoints
+02:47 but still people, since it hasn't allowed filters definition itself,
+02:51 will still allow the last name field to be searchable.
+02:55 We just saw how we can disable filters
+02:58 by setting allowed filters to an empty array
+03:00 let's see how we can disable sorting instead
+03:03 well, this is super simple, you just set sorting false, by default it is true globally,
+03:10 and sorting also has a local counterpart
+03:14 so if you want you can go to a specific endpoint and set sorting to false
+03:20 just for the endpoint while you keep sorting enabled
+03:27 at the global level or vice versa,
+03:32 Finally, let's talk a little bit about query security and performance.
+03:36 If you go to the Eve website and specifically to the configuration page,
+03:41 where by the way we find all of the settings
+03:45 we've be in mentioning so far and so many others.
+03:48 If we find that there is a Mongo query blacklist option
+03:52 now this is a list, and by default it has the
+03:56 where and regex operators blacklisted
+03:58 which means that if a client attempts a query using these operators,
+04:03 they won't work, they will be ignored, and there is a reason for that.
+04:08 These are Javascript operators,
+04:10 and Javascript tends to be slow, first of all,
+04:14 and second, it is Javascript, so it can be used for injection attacks on the server.
+04:20.68 It is unlikely to happen,
+04:23 Mongo is not subject to injection attacks as most of SQL servers are,
+04:27 but it can still happen, so you have them disabled by default.
+04:31 If you need to enable them, you can simply go to your settings file
+04:35 and just set Mongo query operators to an empty list,
+04:38 if you want to allow all of the Mongo operators
+04:41 or you can fine tune by just including only what you really want to be excluded
+04:47 and here for example, if we are allowing regex operator to work
+04:52 because it is not in the list, while where is still excluded.

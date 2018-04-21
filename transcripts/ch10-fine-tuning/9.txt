@@ -1,0 +1,74 @@
+00:0.0 When a request is received, one or more events are filed by the framework,
+00:4.22 you can subscribe to these events with multiple callback functions.
+00:9.36 There are essentially two kinds of event hooks.
+00:12.21 You can attach a custom function
+00:13.96 to a pre or post request event
+00:16 or you can subscribe to a database event.
+00:20.49 We're now going to give a look at database events
+00:24 here we defined a standard Python function
+00:27 it's called inject signature and it accepts the resource name and the response,
+00:32.42 which is about to be sent back to the client.
+00:35.18 The goal of this function is simply
+00:36 to add a new field to the response with our signature.
+00:41 Now, the way this works is that once we have the instance of our Eve app
+00:46 we can attach our function to the on fetched item event.
+00:52.21 If we save and go to our Postman client
+00:57 and try to fetch one item, one document,
+01:01 this is a get request to this specific document,
+01:4.73 we get back the document with the new field.
+01:7.5 So what we've been doing is essentially inject new fields into a document.
+01:13.63 Now this field is returned to the client,
+01:16.18 but since we injected it right after reading it from the database,
+01:21.85 it is not in the database.
+01:23.78 So essentially, we are transforming the document
+01:26 before it is sent back to the client,
+01:29.46 and we can do that because we are attaching our function
+01:32 to the on fetched item,
+01:35 which, as the name implies, is only filed
+01:38 when an item has been fetched from the database
+01:40.5 and is about to be sent back to the server.
+01:44 In this other example I want to show you
+01:48 how you can attach a functional to a post command,
+01:51 so every time a post request hits the service
+01:54 and before the documents are sent to the db,
+01:57.75 we want this function to be invoked.
+02:01 As usual, we get the resource and items is an array of documents
+02:06 which are about to be stored, because as you might recall
+02:09 a client can submit more than one document with a single request.
+02:14 So what we're doing here is a simply iterate the documents
+02:18 and if a born field is available in a document
+02:22 we add an age field that based on the day the person was born.
+02:27.86 We then go and attach our callback function to the on insert event.
+02:34 Let's go and try these out.
+02:37 Here I am trying to post to the people endpoint
+02:40 and the guy is called Gimme An Age and was born on 27 August 1970.
+02:48 Let's post this one, everything is fine,
+02:52 now let's go back and see what happened to the person,
+02:59.37 we do a get to the person endpoint,
+03:02 we have the last name, we have the born, and the default role
+03:07 but we also have the age field which is 48—
+03:10 what happened here is pretty powerful if you think about it
+03:15 we are doing transformation this time,
+03:18 before the document hits the database
+03:21 and because our previous inject signature function is still hooked
+03:26.49 to their own fetched item, when we did the get request
+03:29 we also get the signature injected into the document,
+03:34 so while age is permanent on the database, signature is not,
+03:38.98 it is still being injected by our callback function.
+03:43 There is a huge number of events
+03:47 to which you can attach your callback functions,
+03:50 there is a table on the website you can go and look it up
+03:53 we have events for fetch, insert, replace, update, delete, you name it
+03:59 and also every single command or request has an event
+04:05 before the operation is performed, and after the operation is performed.
+04:10 And these are just the database events,
+04:13 then you have all that pre and post request events which are also equally powerful,
+04:19.71 so you want to go and look them up.
+04:22 Finally, let's go back to our code
+04:24.7 and give a look at the operator we're using here
+04:27 we're attaching a function to an event but the operator hits
+04:32 and the fact that we can actually add more than one function to the event
+04:37 and this is true, we might have another function
+04:40 doing some fancy stuff, I don't know, performing some computation
+04:44 and it will be a different one, isolated,
+04:48 which helps in keeping our code well organized, tidy and clean.

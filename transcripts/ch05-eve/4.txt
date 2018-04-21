@@ -1,0 +1,38 @@
+00:00 And what about sorting? Of course you can sort too,
+00:03 you just have to use the sort keyword in your query definition,
+00:06 so for example, here we are sorting by location.city and then by last name,
+00:13 and because I am using a dash before the last name,
+00:17 field I want then reversed.
+00:21 So basically I am looking for all the people with no filter,
+00:25 because I am not using the sorted by location.city
+00:29 and last name reversed.
+00:32 Let's see what happens, we have 7 documents,
+00:35 the first document here has no location subdocument as you can see
+00:40 the second is the same, no location,
+00:43 the third one is in Ashfield
+00:50 and then we have another person living in Auburne,
+00:56 and then New York comes, and then San Francisco,
+01:00 San Francisco again and if we check it on the last names,
+01:03 we will see that they are sorted by diverse order.
+01:06 For example, we have 2 people living in San Francisco
+01:10 let's go and see, we have miss Julia Red first
+01:14 and then comes Miss Serena Love,
+01:18 so yes, we are getting them in reverse order,
+01:21 of course, we can also mix a filter with sorting,
+01:24 so here we might go with something like where—
+01:31
+01:38 okay, so here we are looking for all the people living in San Francisco
+01:43 sorted by last name reversed.
+01:46
+01:49 Only 2 documents, and we can see they both live in San Francisco
+01:56 and the first one has last name Red
+02:01 and then Love, again, if I remove the dash here
+02:05 I am sorting by last name
+02:08 and we should get the same two documents
+02:10 but the first one is Love this time and the second is Red.
+02:15
+02:17 Also, when using sort you might want to switch to a Mongo syntax
+02:22 something like this, which isn't probably very intuitive,
+02:29 but you can do that if you want to,
+02:33
+02:39 same result, of course.

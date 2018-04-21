@@ -1,0 +1,51 @@
+00:0.1 Now that we're connected to an actual database,
+00:2.72 we want to start writing to it.
+00:4.41 So let's go back to our Postman client, we switch to a post request
+00:10.13 to the people endpoint and we want to add the app payload to our request
+00:14.17 so let's go to the body tab and switch to application Json.
+00:18.9 Notice, as we switch to Json a new header has been added for us,
+00:24.00 so the content type with this request
+00:26.51 is going to be application Json.
+00:29.30 Now, all we need to do is add our body,
+00:31.98 Let's add a simple document with just one field, first name, John.
+00:43.30 When we hit send, what we get back from our API is an error.
+00:48.30 Method not allowed. This is actually expected because by default,
+00:53.02 Eve APIs are read only, and this is done to protect your data of course.
+00:58.00 If you want to allow write operation on your database,
+01:0.74 you have to explicitly opt in.
+01:3.38 So let's. see how it's done.
+01:06.20 Back to our client, we go and as you might imagine,
+01:9.49 what we need to do is add a new keyword here, resource, methods.
+01:16.30 So which are the methods that are supported at every endpoint
+01:20.53 or resource in Eve terms.
+01:24.00 This is a list and the default is just
+01:26.84 a simple string with a get command.
+01:28.78 If you want to add support for write operation,
+01:31.75 we add post command, and if we want to support the deletion,
+01:37.34 we go with the delete command.
+01:40.58 So let's save these and restart our server.
+01:46.95 So now we are going to support not only read operations,
+01:50.62 but also write operation and delete operation.
+01:56.88 Let's go back to our client and try our request again.
+02:2.73 We're still getting an error but it has changed.
+02:5.63 Now we're getting an unprocessable entity.
+02:8.81 Now, this means that the write operation has been attempted,
+02:13.32 but there was some kind of error,
+02:15.84 and if we inspect the payload,
+02:18.18 we see that we are getting a new keyword, a new meta keyword,
+02:22.53 and it is issues, this is a document,
+02:26.12 and it contains the list of errors,
+02:29.00 as we can see, the problem here is
+02:31.30 that the first name field is unknown,
+02:33.20 this is because, again, even if Mongo is a schemaless
+02:38.36 and you can write anything to Mongo,
+02:40.59 that doesn't mean that you really want to allow
+02:43.95 any kind of document and field
+02:45.74 to be stored on your database.
+02:48.00 Most of the time you want your documents to be validated,
+02:51.00 and you want them to match some kind of schema.
+02:53.9 This is the reason why Eve doesn't allow you
+02:56.00 to write unknown fields to your database.
+02:59.19 We will see that there is an option to allow unknown documents,
+03:2.49 but by default, that's not possible.
+03:5.0 What we need to do now is define a schema for our endpoint.

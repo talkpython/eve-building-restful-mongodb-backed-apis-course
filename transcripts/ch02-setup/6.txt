@@ -1,0 +1,82 @@
+00:01 We are going to write some code in this course
+00:03 so we need some kind of code editor, right?
+00:05 Well, when it comes to coding,
+00:08 a Python developer is left with a number of options.
+00:10 Now, I won't get into the text editor versus IDE debate, not today, at least.
+00:17 Personally, I happen to work on different platforms and languages
+00:20 so depending on the task at hand, you can find me doing Python on Vim
+00:23 or C# in Visual Studio when I am on Windows.
+00:26 So yes, I'm using minimal text editors as well as IDEs,
+00:30 Vim is so wound up in my muscle memory
+00:32 that even when I am on Visual Studio I still use Vim key bindings.
+00:36 Lately, I also had been doing both C# and Python,
+00:40 and Javascript to be honest, on Visual Studio code.
+00:44 For this course, I am going to use Code.
+00:46 It is a fantastic, open source editor widely adopted by the Python community.
+00:51 It runs on MacOS, on Windows and on Linux.
+00:55 It is free, very stable and also actively maintained.
+01:00 I find it to be the perfect compromise
+01:02 between a pure text editor like Vim,
+01:04 and a full blown IDE like Visual Studio or PyCharm.
+01:08 Of course, you're free to use your preferred editor or IDE,
+01:11 but if you want to follow me as I type my code,
+01:14 you may want to download and install Code.
+01:17 You never know, you might end up liking it a lot.
+01:19 Getting Code is simple, you just have to go to code.visualstudio.com
+01:24 and hit this big download button here
+01:28 where you can pick your preferred version.
+01:31 As I mentioned already, you can get it on the Mac, on Windows or on Linux,
+01:35 just make sure that on Linux, you get the correct version,
+01:39 depending on your distribution.
+01:41 You can also click on this button here in the upper right corner
+01:44 you will get basically the same links and options.
+01:47 Once Code is on the system
+01:49 we want to get it ready for Python.
+01:52 So let's activate the virtual environment that we created
+01:56 when we installed Eve in a previous lecture.
+01:59 Source, and here we are,
+02:08 as you can see, our virtual environment is active now
+02:11 let's pip freeze so we know which packages are installed,
+02:18 yes, Eve is there, ready to go.
+02:21 Now, we need a folder where we want to work and write our Python scripts,
+02:25 so let's create it,
+02:30 and then let's move into it, right,
+02:36 now, we can launch our editor
+02:39 we'll use a dot to instruct Code that we want to work
+02:43 on this very folder where we are sitting right now.
+02:49 And here we go, as you can see, Code is ready for us,
+02:53 and it is already on our folder, as we can see here.
+02:57 Before we can start coding in Python,
+03:00 we need to install the proper installation.
+03:02 So let's go over here, to the extension tab and click on it.
+03:06 As you can see, we get a nice list of available extensions, for Code.
+03:09 Yes, there are a lot of them, actually,
+03:13 they are probably are in the order of the hundreds, if not thousands,
+03:17 you name a language, a stack or a framework
+03:19 you probably will find two, three, five extensions for it.
+03:23 It is really a huge number and what's even more interesting is
+03:27 that they are sorted by number of installs,
+03:30 and as you can see, the top one is Python,
+03:32 let's click on it.
+03:34 On the right pane, we get a lot of information about the extension,
+03:37 quick start, link to the documentation etc,
+03:40 but, look at the download number here,
+03:43 at the time of this recording, we are at almost 6 million downloads,
+03:47 it's a huge number I believe and it tells a lot about the adoption rate
+03:52 of Code by the Python community.
+03:55 And next, look at the release,
+03:59 this is actually a Microsoft release, so it is an official extension
+04:02 and there is a little story here
+04:05 because actually the guy who started working on this project
+04:07 started it as a community project on github,
+04:10 then, as the adoption kept growing
+04:13 Microsoft reached out to this guy and they ended up hiring him,
+04:16 so now he is a Microsoft employee
+04:19 and the extension itself is an official extension by Microsoft.
+04:23 Now, this is interesting for a few reasons,
+04:25 but I find it is important because it tells a lot
+04:28 about the commitment of Microsoft into open source, Python and Code.
+04:33 So let's install the extension, click on this start button here,
+04:37 it will take a while, and done.
+04:40 Once the extension is installed, you need to reload it, and here we go,
+04:45 Python is now installed and we are ready to go.

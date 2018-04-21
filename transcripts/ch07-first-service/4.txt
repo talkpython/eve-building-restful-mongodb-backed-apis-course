@@ -1,0 +1,32 @@
+00:0.0 We want to define a schema against which every single document
+00:3.0 coming into our people endpoint will be validated.
+00:6.40 So let's go back to our code editor.
+00:11.00 In Eve, schemas are Python dictionaries.
+00:15.8 Every key in the dictionary is actually a field name
+00:22.21 and the values are dictionaries themselves.
+00:26.25 Let's define the type of this field.
+00:29.39 I did a string and let's also add last name field,
+00:34.11 again of type string.
+00:40.08 Now that we have a definition for our endpoint
+00:42.58 let's add it to our people endpoint configuration.
+00:48.82 The schema is this one.
+00:53.12 So we're telling Eve that our domain is composed
+00:57.71 of just one people endpoint and the schema for the endpoint
+01:2.86 is this one, we have two fields,
+01:4.20 first name, last name, both of type string.
+01:07.30 So every document coming into our API at the people endpoint,
+01:11.29 will be validated against this schema.
+01:15.58 We need to save our file and relaunch the app.
+01:22.05 Now let's go back to our client and try to store our John here.
+01:28.45 And here we go, the status is created,
+01:33.14 and we get a number of metafield back,
+01:35.34 so the data it was created and updated,
+01:38.56 which are, off course, the same, the etag for the document,
+01:42.17 the unique id, the link to the document itself, and the status, which is ok.
+01:47.83 So now that the document has been created,
+01:50.39 we can try and go back and perform our send request to the people endpoint
+01:56.52 and what we get back is an array
+01:58.88 with one document inside it, the meta node,
+02:2.83 as you can see, we have page one and one document total.
+02:7.24 So let's open our document and we see that it is indeed our John, as expected.
+02:13.0 Success!

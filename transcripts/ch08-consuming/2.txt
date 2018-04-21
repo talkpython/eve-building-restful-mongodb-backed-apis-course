@@ -1,0 +1,122 @@
+00:01 How the we consume our Rest service from Javascript?
+00:04 Well, let's see, we have a web page here, super simple,
+00:07 just a simple button and we expect that when we press this button
+00:11 an asynchronous call is made to the service
+00:14 and the result will be printed here.
+00:18 We want to hit the people endpoint of our web service
+00:21 and we get one single person, the first name of that person appears here,
+00:27 let's go and see the code.
+00:31 Here we are, we have a webpage.htm file, it is a single page
+00:37 and it is just plain html as you can see.
+00:42 Just for convenience this file is saved alongside our server code
+00:48 but it could be stored anywhere, of course.
+00:52 We now need to add the Javascript
+00:55 I will just be pasting some code
+00:57 so you don't have to look at me as I type all this stuff,
+01:00 it isn't going to be a lot of code, but better safe than sorry.
+01:04 So let me start by adding a head section
+01:08 and within the script tag we're going to add our functions.
+01:12 The first one, the most important, is the asynchronous call,
+01:18 here it is, so let's give a look at this function,
+01:21 it is going to perform an asynchronous get request
+01:25 as you can see here in the first line, we are creating an instance
+01:29 of the xml http request class,
+01:33 and then in line seven we're hooking a function to the
+01:39 on readystatechange event.
+01:42 The content of the function is actually very simple.
+01:46 All we have to do is make sure that the ready state is 4
+01:52 which means done, so the request has been performed,
+01:57 and we got a response back.
+01:59 And also, the status of the response was okay, 200
+02:06 So when this is true, when we got back a response and the response is ok,
+02:11 we call our callback, which we get as an argument, you can see that here.
+02:17 We call our callback function, and we pass the response text,
+02:22 by the way, the URL we hit with our request,
+02:28 this is again an argument which is passed to the function.
+02:31 so once we have hooked a function to our event,
+02:37 we go and open our URL and send a request
+02:42 so it is actually very simple.
+02:45 If you're working with some kind of Javascript framework
+02:50 like Jquery, Angular or what have you,
+02:54 probably you're going to perform the request in some alternative way.
+02:57 This code here is going to work with the pure Javascript,
+03:00 if something like that actually exists.
+03:04 Right now, we need to add our call back function,
+03:07 the function which will be in work
+03:09 once the response has been received and can be processed.
+03:13 So let's add a new function here, we call it first name
+03:17 and it gets a text, some kind of text,
+03:20 it is playing text from the response body.
+03:22 So the first thing we need to do is parse it as Json.
+03:25 And once we have the Json
+03:27 where this is your old classic dom manipulation,
+03:30 we get some html element which goes by the id of first time
+03:35 and we change its inner html to the content
+03:40 of the first name field within our Json string.
+03:44 Of course, we already know that this is where
+03:47 the Json string will appear, I only need to fix this.
+03:53 All right, so this paragraph here has an id of first name
+03:57 and our callback function which will be
+04:01 invoked by our asynchronous request code
+04:04 will update it with the Json coming from the web service.
+04:09 Alright, last thing we need to do is link our button to our code
+04:15 and this is easy to do because I already know
+04:18 the URL of the person I want to hit, yes, I'm playing it smart here.
+04:22 Let me see if we can make it more readable by doing this
+04:29 well kind of, so you see that on click we call the http get async,
+04:35 we pass the URL to the person we want to hit, to retrieve
+04:40 and then we pass the name of the callback function,
+04:43 this should be it, let me save,
+04:46 and then go back to Safari, refresh the page,
+04:51 and we're ready to try our code.
+04:55 It doesn't work, and this is actually expected.
+04:59 The reason it isn't working is CORS
+05:02 you might know about it already if you're working
+05:05 with the websites and Javascript, you've probably heard about it
+05:08 if you didn't, you can go to this excellent reference online
+05:13 at mozilla.org and read about it.
+05:17 Every time a browser needs to perform a request to a domain
+05:22 which is different than the one where the web page is hosted
+05:27 it will perform a CORS request
+05:29 this is essentially a mechanism to make sure
+05:32 that servers are serving domains and web pages which are well known.
+05:38 I'm not going into the details here,
+05:42 you can read the documentation at this a page link on this slide.
+05:46 So the point about CORS is
+05:49 that the server needs to authenticate and authorize
+05:53 the web page making the request.
+05:56 Luckily for us, Eve has full support for CORS
+06:00 so let's go and see what we need to do on the server side
+06:03 to allow a web page to perform a request to our server.
+06:08 Back to our settings file, let's add a new keyword and it is x_domains.
+06:16 Now this defaults to none, and this is why it didn't work
+06:20 when we tried the first time,
+06:22 so basically, this tells our Eve instance
+06:25 that it should not accept the requests coming from web pages
+06:30 which are not in the same domain as the server,
+06:34 which is usually not the case.
+06:37 So if you want to allow requests from browsers
+06:40 you go here and change this default setting to something like
+06:44 example.com this is a list, so you can add that whatever you want here
+06:49
+06:55 but if you have a public server,
+06:58 you want to accept incoming requests from anybody
+07:00 all you have to do is use a star, save, relaunch
+07:09 and now it works just fine as expected, John is our man.
+07:15
+07:18 Let's go back for a moment into our settings file,
+07:20 I want to show you an alternative to x_domains
+07:23 and it is x_domain but with regular expressions
+07:29 you can use both of these settings together if you want to, of course
+07:34 this one right now doesn't make sense
+07:36 because with the first one, you're opening up your server to any web page,
+07:41 and then here we are only accepting the example.com
+07:45 or any subdomain within example.com
+07:50 but we might for example, have something like this,
+07:54
+08:00 so here we will accept requests coming from web pages hosted at talkpython.com
+08:06 or web pages hosted at example.com or subdomains within example.com.
+08:14 There are actually several more settings you can use
+08:19 to fine tune your course configuration on the server.
+08:22 If you're interested, you can look them up
+08:24 at the configuration page at python-eve.org.

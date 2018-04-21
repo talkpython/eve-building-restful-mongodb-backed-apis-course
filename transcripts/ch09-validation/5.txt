@@ -1,0 +1,110 @@
+00:00 We already learned that Eve offers a wide and flexible range
+00:04 of validation and transformation rules.
+00:06 No matter how powerful and rich a validation system is,
+00:09 there will always come a moment when you need to go beyond that.
+00:14.77 This is the case when you want to validate a value
+00:18 that must conform to standards and conventions,
+00:21 which are specific to a certain application field.
+00:25 Eve allows to extend the validation system by creating custom rules,
+00:30 adding in new types or using validating functions.
+00:34.6 In this lecture, we're going to see how we can work with these features
+00:38 to unleash the full power of Eve validation system
+00:41 and model it to suit our own specific needs.
+00:44.71 Now, if you look back at our app.py script
+00:49 we realize that we haven't really been working on it for a good while
+00:54 most of our time is being spent on the settings file
+00:58 and this is nice because we've been changing
+01:01 how our service responds to requests updating its schema
+01:06 endpoint configuration, everything we've done it's been always a declarative thing,
+01:12.02 we just updated our settings files,
+01:14.94 but now that we want to extend the validation system features set
+01:19 we need to write some code, and this is probably very exciting.
+01:22 So let's start by important from eve.io.mongo
+01:33.2 as you can see, the eve.io.mongo name space
+01:38 exposes a validator class, this is the class used by Eve by default.
+01:44.03 And you see, it is stored within the Mongo name space,
+01:48.7 which already hints at the fact that
+01:51 you can have probably more than one validator
+01:55.36 maybe a SQL data layer will be using its own validator,
+01:58.84 which makes sense if you think about it.
+02:01  Now that we have a validator class, we want to subclass it.
+02:07 Let me save these, as you can see, the server has restarted here,
+02:11.07 and how do I use my validator to replace the standard one,
+02:16 well, this is super easy, all I have to do is pass it to my instance.
+02:27.81 So this is how I replace the standard validator
+02:32 coming in this case with the Mongo data layer with a custom one,
+02:37 right now we aren't really doing anything,
+02:40 my validator here is exactly the same as the in-house validator, so to speak.
+02:45 Let's, see how we can improve on it.
+02:48 Just for fun, let's assume that we're really interested
+02:51 in only accepting odd numbers for a certain field,
+02:54.98 and we want to build a custom rule for that.
+02:56.95 We want to be able to go to our settings file,
+03:00 pick our age field here and say,
+03:4.67 yes, it is an integer, but look, we also want this integer to be odd.
+03:13.58 So we want the rule like this one is odd true,
+03:18 which means age must be an odd integer,
+03:23.46 let's just get rid of this coerce function here just to avoid confusion.
+03:27.65 Let's, go back and let me paste the code for this validation,
+03:34 here it is, so as you can see, the way you create a new rule,
+03:39 is defining a private function, you can tell it is a private one
+03:43 because it has this underscore at the beginning,
+03:46 which is a convention in Python for private functions within a class.
+03:49 And then you have the validate keyword,
+03:51.08 and then another underscore and then actuall rule name
+03:57 so validate is odd. Of course it is a class function,
+04:00 we're accepting this is odd, which is a boolean,
+04:04 and then the field and value for the field
+04:07 which we have to validate against.
+04:10 Implementation is very simple, it is just the test
+04:12 if the number must be actually odd and it isn't, then set an error.
+04:18.3 So here you see how you set an error,
+04:20 you just invoke the error method you pass the field
+04:23 and the description for the error, and that's it.
+04:28 So let's save, server restarts,
+04:32 and let's go to Postmen and see what we've done.
+04:35 So here I'm posting last name and age,
+04:39.14 last name I'm adding it because it is required if you remember
+04:42 and age is 18, let's try to post this.
+04:47 And we get an error, unprocessable entity,
+04:49 and as you can see, age value must be an odd number.
+04:54 Let's try with 19— good.
+05:1.96 We now know how we can define custom rules
+05:04 and apply them to whatever field we need.
+05:6.67 But what if we want to the define custom types instead?
+05:11 Let's go to our settings file and look at this email field.
+05:15 It is a string and we are applying our regular expressions rule against it,
+05:20 it works fine, but if we had more email fields,
+05:23 and maybe in other endpoints in our service,
+05:27 every time we'd need to copy and paste all this stuff here
+05:30.43 which is also prone to errors,
+05:32 it would be much better if we could define a type email
+05:36 this way we would not need to type any regular expressions
+05:40 and our type would be reusable anywhere
+05:44 even in different services in our microservices network maybe.
+05:50 We can do that, let me save this type definition and go back to our app.
+05:54 The way we define a custom type
+05:58 is very similar to how we define a custom rule,
+06:2.15 _validate type,
+06:06 now the intellisense here is already hinting at how the Mongo validator
+06:12.14 is extending the base validator class
+06:15 as you can see all these types here are Mongo types,
+06:20 So let's define our email as a class method,
+06:32 this is how you define a custom type, let me paste the actual code.
+06:37.42 So if the regular expression is not matched, then set the field error.
+06:44 Now, before we say we need to import regular expression module,
+06:50 let me save, relaunch.
+06:57.38 Now, if we try this post here, email should be a type,
+07:05 you see we get value is not a valid email for the email field.
+07:9.62 Let me try with a valid email.
+07:13 Great, back to our editor,
+07:18.69 So here is our code, as you can see,
+07:20.52 a simple class, subclassing the Mongo validator,
+07:23.68 and you can define custom rules or custom types,
+07:27.93 and these are reusable, you can import your specialized class
+07:33 whenever you need to,
+07:34.63 If you're building multiple services with Eve,
+07:37 you can reuse your class in all of these services
+07:41 which is interesting if you're building a micro services network.
+07:45 And the way you pass your validator to the Eve instance
+07:49 is simply passing it when you instance the class as an argument.

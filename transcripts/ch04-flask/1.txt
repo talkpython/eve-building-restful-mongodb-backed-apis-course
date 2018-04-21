@@ -1,0 +1,77 @@
+00:01 Before we dwell on Eve itself, we really need to talk about Flask.
+00:05 Why, you ask?
+00:07 Firstly, because Eve is built on top of Flask, keep that in mind
+00:11 because it is very important and powerful.
+00:13 Anything you can do with Flask, you can also do with Eve,
+00:17 that is remarkable, because by leveraging Flask and Eve,
+00:21 you end up being able to fine tune, extend and customize
+00:24 basically every single feature that comes with the framework itself.
+00:28 So in this section, we will make ourselves comfortable with Flask
+00:32 and trust me, it will be worth it.
+00:35 Once we move on to Eve in the next sections
+00:38 you will be amazed at how comfortable you feel sitting at the Eve wheel.
+00:42 Now if you look at the Flask about page
+00:45 you see that Flask tags itself as a micro web development framework,
+00:49 what does it really mean?
+00:51 Micro doesn't mean that the web app
+00:53 has to fit into a single Python file of course,
+00:55 nor does it mean that Flask is lacking in functionality.
+00:59 The micro in micro framework actually means
+01:02 that Flask aims to keep the course simple, but extensible.
+01:05 Flask want to make many decisions for you
+01:09 such as what database to use,
+01:11 those decisions that it does make however, are easy to change.
+01:14 Everything else is up to you
+01:16 so that Flask can be everything you need and nothing you don't.
+01:19 Again, being micro doesn't mean lack of functionality,
+01:23 let's look at its acclaimed Restful request dispatching for example;
+01:28 here we are looking at two possible roads for our apo,
+01:31 one, obviously being the home page
+01:33 and the other one being a Hello URL.
+01:36 As you can see, we are using a decorator to instruct Flask
+01:39 on which functions should be run when a user hits a certain URL or endpoint.
+01:44 How nice is that?
+01:46 There is more to it, of course,
+01:48 like the option to add variable parts to you URL to use.
+01:51 But you can already see how Eve could easily
+01:55 leverage and build on top of this feature
+01:58 to provide an out of the box, yet powerful and easy to use routing mechanism.
+02:03 Flask also comes with a built in development server and debug support.
+02:09 This is super important when you are prototyping
+02:12 and then writing web apps.
+02:14 You get all sorts of debugging formations,
+02:17 like stack traces and variable inspection
+02:20 just by setting an environment variable as we see here.
+02:23 In the following line, we see how easy it is to launch the application itself.
+02:28 This is possible, because Flask comes with its own development server
+02:32 which is more than good enough to play and test the app
+02:36 before going into production.
+02:39 There are many other nice things that are coming with Flask
+02:41 and one of my favorites has got to be the integrated support for unit testing.
+02:46 When you're building a framework
+02:48 you want to make sure that it is well tested.
+02:50 That is true for any kind of web app really,
+02:52 but if your end users are going to be developers,
+02:55 well, you want to make your test as complete and effective as possible.
+03:00 Flask native support for unit testing
+03:02 which we can see at work in this course snippet, is a key feature,
+03:06 and we have of course been abusing it while developing the Eve framework.
+03:10 If you're going to write your own web apps or frameworks with Flask,
+03:13 you really want to get to know everything about testing Flask
+03:16 and of course, its debug mode and development server.
+03:20 So Flask is cool and it is fun.
+03:22 It is easy to set up and use, but being micro by desine
+03:27 doesn't come with the tons of a high level features
+03:30 such as database access or an admin backend.
+03:34 Luckily and precisely because it is micro, powerful and easy to extend
+03:39 over time a huge number of Flask extensions have surfaced
+03:43 and are now available for you to use.
+03:45 The extensions' registry is loaded with all kind of useful tools
+03:49 which you can plug into your app and most of the times Eve too,
+03:53 and then be on your way,
+03:55 or you can build your own extension
+03:57 and then contribute it to the community.
+04:00 In fact, one of the reasons why Flask is so popular
+04:02 is because it is very easy to build on top of it,
+04:05 and in any case, the extension registry is at your fingertips
+04:10 where you don't feel like reinventing the wheel.

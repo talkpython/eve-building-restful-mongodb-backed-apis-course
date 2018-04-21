@@ -1,0 +1,62 @@
+00:01 All right, we have our first Eve application up and running
+00:04 let's review what we've done so far.
+00:06 Our app is made of two Python scripts,
+00:09 one is app and the other one is settings.
+00:12 What is perhaps more interesting is that the actual app is
+00:17 00:16.96 only made of one line of actual code,
+00:19 and the second script is more a configuration file
+00:22 than a real Python scrape,
+00:25 and this is probably the basic concept behind any Eve application.
+00:29 which is that most of the heavy-lifting is done by the framework itself
+00:33 you mostly have to just configure how it should behave
+00:37 according to your use case.
+00:42 On the first line, we're connecting to our db,
+00:44 in this case, we're connecting to a local instance,
+00:48 but it could very well be some remote instance,
+00:51 maybe a replica set hosted on, I don't know,
+00:53 Mongo address service or whatever have you.
+00:57 Next, we set the methods allowed
+01:02 at both the collection and document endpoint
+01:05 by default, Eve is read only, so if you want to allow for clients
+01:11 to write or edit or delete, you have to explicitly say so
+01:16 by extending these lists here.
+01:20 Next, we defined the API surface or as they call it,
+01:25 the domain of our API,
+01:27 here we defined one single endpoint,
+01:31 the schema for this endpoint, is defined in people schema over here.
+01:37 We only have two fields and they're both of type string,
+01:41 by the way, here we are justifying the type of the field
+01:44 but in fact, there are a lot more options
+01:48 we will have a specific lecture about data validation
+01:52 and we will see how many options we have
+01:55 when we want to make sure that the data coming in
+01:58 is a properly formatted and validated.
+02:01 Now, you might be wondering
+02:03 what if I want some endpoints to be read only,
+02:06 others may be to be write only,
+02:08 and all the rest be read and write?
+02:11 We only set the globals here but we can go and overwrite the globals
+02:16 when we define every single endpoint,
+02:19 for example, let's say that we have a second endpoint works
+02:22 and here we want to be read only,
+02:25 well, all we have to do is overwrite the global setting
+02:29 resource, methods,
+02:32 and then probably we also want to be with read only at the item endpoint
+02:41
+02:44 and that's it, by the way notice how here we're using the lower cases
+02:48 while in the global settings, we use the upper case.
+02:52 So, people is going to use the global setting
+02:56 because it is not redefining the rules,
+02:59 works is going to be read only
+03:01 because of these two declarations here overwriting the global.
+03:05 Okay, I believe we're done with the first app,
+03:09 just keep in mind that because most of the heavy lifting is done by the framework,
+03:13 and yes, it is a strongly opinionated framework,
+03:16 most of the features we saw in the quick tour a few lectures ago,
+03:21 they're already available to your app,
+03:23 even if it is a simple one like this one.
+03:26 For example, we could go back to our postman client
+03:29 and perform queries sorting,
+03:31 ask for xml rendering— let's do that, just for fun.
+03:36 Let's, go here, do a get to our document endpoint
+03:41 and lets ask for xml. Here we go.

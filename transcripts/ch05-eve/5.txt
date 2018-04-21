@@ -1,0 +1,20 @@
+00:00 And what about pagination?
+00:03 Well, at this point, you probably have an idea of what you can do,
+00:06 you can use the page keyword here
+00:08 and ask for page 2 for example,
+00:10 so all the people, second page.
+00:13 Of course, since we only have 7 documents total,
+00:17 and we don't have any document on page 2
+00:21 because we have 25 documents per page,
+00:23 so they are all going to be on page 1,
+00:26 if we go to page 3, same result,
+00:28 if we go on page 1, we get all of them.
+00:31 Again, pagination can be disabled,
+00:33 we will see how, it will also improve performance,
+00:36 if you turn it off, but we will talk about that
+00:39 in one of the next segments.
+00:41 Alright, our tour is over, hopefully you got a general idea
+00:44 of what you can achieve with an Eve powered API.
+00:47 There are of course many more basic and advanced features
+00:51 and we will learn more about them in the next segments
+00:55 when we start building our very own service.

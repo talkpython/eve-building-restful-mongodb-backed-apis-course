@@ -1,0 +1,104 @@
+00:01 One very special rule you have in your Eve arsenal is data relations.
+00:05 Now, data relations don't really belong to the Mongo world,
+00:10 in Mongo, you tend to use the subdocuments and sublists whenever possible
+00:14 but there are situations where it still makes sense
+00:17 to split data into different collections.
+00:20 When you do that, Mongo doesn't offer you
+00:23 a join feature like the SQL databases do.
+00:27 You can achieve a similar result with the aggregation framework
+00:31 which is also supported by Eve, by the way,
+00:34 but the simple join between two documents
+00:38 stored in different collections— that's a no-go.
+00:41 Eve, however offers support for what we call embedded resource serialization.
+00:48 It allows a client to request the reference of document
+00:53 which are on different collections
+00:55 to be returned as a subdocument.
+00:58 So yes, with Eve data relations you're basically getting a join feature for free.
+01:7.15 This is useful because this way
+01:10 the client only has to perform one request to the remote server
+01:14 whereas it will need two different ones.
+01:18 To illustrate how data relations work in Eve I defined a new endpoint
+01:23 let me close the people endpoint definition, and here we have works,
+01:27 works has a schema and most of these fields are standard ones,
+01:32 like title, which is a required string and description which is a string.
+01:37 Let me close this one, let's look at owner.
+01:41 Owner is of type objectid, it is required, and it also has a data relation.
+01:49.29 So the reference at the resource is people
+01:54 which means that an objectid in the owner field
+01:59 is a reference to a document in the people collection with the same objectid.
+02:05 It is also embeddable, which means that
+02:08 clients are allowed to request as you can see in this example, here,
+02:14 they are allowed to request the owner of this work to be embedded.
+02:22 So let's go back to Postman and see these in action.
+02:26 At the people endpoint that we have a number of authors,
+02:30 let's take John Doe, for example, and copy his own id here.
+02:35.47 Let's go and check the works endpoint.
+02:40.56 It is empty, of course, let's try to post a new work,
+02:46 something like a title, which might be My New Book,
+02:55 description we'll skip it since it is not required.
+03:00 but we want to add an owner
+03:06 and the owner is going to be the id to John Doe,
+03:09 It should be set, let's try this one, created, great.
+03:14 So we got this in, let's try to hit the endpoint for this work,
+03:21
+03:25 Sorry, I need to perform a get request here,
+03:28 Okay, my new book, and as you can see, owner is, off course, an id,
+03:35 which is nice, useful, but a client now would need to go back to the remote server
+03:42 and perform a request to the people endpoint for this author,
+03:50 if it wanted to know who is the owner of this book or author.
+03:56 So, what we can do here is, let me strip this a little bit,
+04:03 is do something different.
+04:06
+04:12 So what I'm doing here is tell the API
+04:15 hey send me this work here with this id,
+04:19 but return the owner as an embedded document.
+04:26 And here we go, as you can see now we get the title
+04:30 and the owner is not a simple id anymore
+04:33 it is actually a subdocument with the data coming from the people collection.
+04:40 If I go back to the endpoint I can perform an embedded request here as well.
+04:46
+04:50 Now we only have one item in this collection
+04:52 but as you can see here, if I had more than one work in the collection,
+04:59 every single one would have a subdocument for the owner field.
+05:4.32 Now this is a powerful and useful feature,
+05:07 but it comes at a cost of course,
+05:9.91 while the server is only receiving one request from the client
+05:14 it is actually performing two requests on the database itself, as you can imagine
+05:20 so when an embedded request comes in,
+05:23 what happens is that Eve first retrieves the works document
+05:28 and then goes and retrieves the owner
+05:31 and builds an embedded document on the fly
+05:35 before providing it back to the client.
+05:38 Performance takes a hit here and you have to decide if it is worth it,
+05:44 especially when clients are performing requests at the resource endpoint
+05:49 like this one here, if we had, 1000 works in this collection
+05:56 and every single document would require a double lookup
+06:01 that would surely have a significant impact on your performance.
+06:06 So you only want to enable embedding for fields where it really makes sense,
+06:12 this is why it doesn't come by default,
+06:15 you actually have to switch embeddable to true
+06:18 if you want a client to be able to elevate a request to an embedded request.
+06:24 Furthermore, you can disable embedding at any point
+06:29 by simply setting the embedding to false, it is on by default,
+06:39 it doesn't have any real impact until you switch the single fields on
+06:44 by setting the embeddable option we saw before,
+06:48.13 but you can switch off embedding totally
+06:51 by just setting embedding = false.
+06:54.74 Also, you can keep it enabled here at the global level
+06:58 and then at the endpoint level, you can decide that,
+07:06 for example, works can't be embedded.
+07:12.11 So if you do these, even if the owner field below
+07:17 within the schema is embeddable,
+07:19 because of at the resource level,
+07:22.61 embedding has been turned off,
+07:24 the embedding request will be ignored.
+07:27.32 Let's try that, let's save this new setting,
+07:33.46 restart the server— oh, there is an error.
+07:37.03 Oh, yes, of course, I'm not in C# here,
+07:39 this is Python, so we need to do this, and back the client we go,
+07:46.74 same request, embed query parameters is being ignored,
+07:54 and this is because we switched embedding off for the works endpoint
+07:59.63 If we had an embeddable field in the people collection,,
+08:04 that one would still work, because by default,
+08:06 embedding is enabled at a global level,
+08:10.16 but works again were disabled locally.

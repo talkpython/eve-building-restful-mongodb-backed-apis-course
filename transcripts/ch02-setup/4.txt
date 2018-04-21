@@ -1,0 +1,40 @@
+00:01 Eve uses Mongo as its default database,
+00:03 so it shouldn't be surprising that it's going to require MongoDB.
+00:06 If you haven't already, you should go to the Mongo download center
+00:10 and download and install your desired version.
+00:13 As you can see, Mongo comes in two different flavors—
+00:16 the community server and the enterprise server.
+00:19 The enterprise server is basically the commercial edition of Mongo,
+00:22 it has a few features such as an in-memory storage engine,
+00:27 option of encrypting your data at Rest
+00:31 and a few advanced security features.
+00:34 If you don't need any of these, you can go download
+00:36 and install community server which is, by the way, totally free,
+00:41 open source and it's perfectly good.
+00:44 Now, if you look across the bottom here,
+00:46 we see that we have three different versions of the installation program,
+00:49 one for Windows, one for Linux, and the last one for MacOS.
+00:54 On the Mac, we only have one version available
+00:57 and then we have to pick the installation method.
+01:00 we can download the tar file and then manually install it,
+01:04 or we can use Homebrew.
+01:06 If you're confident with Homebrew
+01:08 which is the de facto package manager on the Mac,
+01:11 I recommend using it because installing will be simple
+01:15 and also in the future, upgrading to new releases of Mongo will be way easier.
+01:21 On Windows, again, only one version available,
+01:25 and it's super simple installation because
+01:28 all you have to do is you just download the installation package and launch it.
+01:31 On Linux, you have to pick the distribution you want and then again,
+01:38 you can download the tar file and manually install it
+01:41 or use the package manager available on your distribution.
+01:45 Again, I recommend using a package manager
+01:48 because installing and upgrading Mongo will be easier on your system.
+01:53 So, regardless of what operating system you are using,
+01:56 you should be able to use Mongo install locally and work with it there.
+02:00 In the appendix of this course, you will also find step by step instructions
+02:04 on how to properly set up Mongo on your own operating system.
+02:09 There are also hosted services, places like mLab or MongoDB Atlas,
+02:17 which is provided by the Mongo company itself,
+02:20 so in case you can't install or configure Mongo,
+02:23 you could always try and connect to one of these services.

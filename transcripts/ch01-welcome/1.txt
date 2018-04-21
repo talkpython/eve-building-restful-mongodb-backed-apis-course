@@ -1,0 +1,73 @@
+00:01 Hello and welcome to RESTful APIs with Eve and Mongo.
+00:04 This is your host, author and instructor Nicola Iarocci.
+00:07 I am really excited to share how you can leverage the Eve framework
+00:12 to build and deploy powerful and yet simple REST services in Python.
+00:16 So let's start with a quick overview of where we're going.
+00:20 First, we will look at what tools we'll be using during the course
+00:23 and how to store them,
+00:25 maybe you are already confident with some of them or maybe you aren't.
+00:28 Either way, I suggest you tag along
+00:30 so you get an idea of what is needed for the course
+00:33 and don't have to catch up later on.
+00:36 Next, we look at REST itself, what REST actually is
+00:40 why it is important and what are some of the core principles
+00:44 that you really want to understand
+00:46 before you even start building a REST service.
+00:49 We'll also look at few examples of very well known REST services
+00:53 just to get an idea of what is out there
+00:55 and what kind of service we aim to build.
+00:58 Next up is Flask.
+01:01 Flask is a simple and elegant micro web framework
+01:04 the Eve framework itself is built top of Flask
+01:07 so making ourselves acquaint with Flask makes a lot of sense.
+01:11 In this lecture, we will actually build a simple Flask application.
+01:14 Since Eve shares so many features with Flask
+01:17 our newly acquired skills will come in handy
+01:20 once we move up to the Eve framework itself.
+01:23 What will follow is an introduction to the Eve framework
+01:26 what features it brings to the table, why and how it allows us
+01:30 to quickly build and deploy powerful RESTful web services
+01:35 and what are its core concepts and philosophies.
+01:38 Once we are done with this lecture
+01:40 we will have a much clearer idea of what we can do
+01:43 with this technology and why it is so useful to us.
+01:46 As you probably know already, Mongo is a scalable,
+01:49 high-performance No SQL database.
+01:51 In my opinion, it makes an excellent choice
+01:54 as a data backend for RESTful services.
+01:57 In this lecture, we will glance at the feature
+02:00 that makes Mongo a good match for the Eve framework
+02:02 and the reasons why of all possible databases
+02:05 I picked Mongo as the default backend for Eve.
+02:08 Alright, at this point we will be ready to build our first RESTful services.
+02:13 In this hands-on section we will make ourselves comfortable with Eve,
+02:16 we will look at the typical application structure,
+02:19 at the set is needed to tailor our app to suit our specific use case.
+02:24 Finally, we will write some code which will allow us to launch our service.
+02:28 Since we have a working service now
+02:30 we'll probably want to consume it with a kind of client.
+02:34 In this section, we will look at how to consume a REST service
+02:37 with Python, Javascript and other tools.
+02:40 Of course, because REST is not confined to Python
+02:44 or any other specific language or stack,
+02:47 what we will learn here, will be useful to access
+02:51 all kinds of RESTful web services not just our own.
+02:54 Now that we are capable of sending or receiving data in a RESTful way
+02:58 we want to make sure data coming in is properly validated,
+03:02 this is a wider part of our data service as you can imagine.
+03:06 In this data focused lecture we will look at
+03:10 how Eve allows to easily set up powerful data validation rules,
+03:14 not only that, we will also see how we can leverage
+03:17 some advanced Eve features to circumvent
+03:20 some of the Mongo limitations, like the lack of joints.
+03:25 And finally, real-world services.
+03:28 This is where our Eve service grows up
+03:30 and becomes a mature and fully featured restful service.
+03:34 We will look at queries and how we can fine tune
+03:37 all kinds of query related features;
+03:40 we will address stuff like pagination,
+03:43 sorting, client server projections,
+03:45 conditional requests, concurrency control,
+03:47 JSON and XML rendering, etc.
+03:51 We will also get our feet wet with the security management
+03:56 and access control, and of course, production deployment.

@@ -1,0 +1,37 @@
+00:00 A few years ago, I was assigned to a new, exciting and challenging project—
+00:04 build a fully featured RESTful service for my company.
+00:08 So, I first researched the REST principles
+00:11 and their concrete implementations.
+00:13 then, I went on to pick a very db backend for my service.
+00:17 Right from the beginning, the plan was that soon enough,
+00:20 more REST services will go online to complement the first one,
+00:24 and since I didn't want to reinvent the wheel every single time,
+00:27 I thought it would be smart to build something
+00:30 that would be easily redeployable.
+00:32 Ideally, I would simple launch a new instance with my package
+00:35 which would, of course, provide all the needed features from the get go.
+00:39 Then, plug a new data set, set up appropriate validation,
+00:43 authentication and authorization rules, and bam,
+00:46 a new REST API will be online,
+00:48 ready to be consumed by our hungry clients.
+00:51 If I could provide most of the features with a single, reusable package,
+00:55 and if I could make it so that duties like plugging at different source,
+00:59 extending, customizing the common feature set,
+01:02 well, if all of these would be easy enough,
+01:05 then I would be a winner.
+01:07 Soon, I realized that such a tool would end up
+01:11 being more a framework than a simple package.
+01:13 And, more excitingly, it could be useful to a lot of people out there.
+01:18 The result of that work
+01:20 was presented at the EuroPython conference back in 2012.
+01:24 My talk there ended up being more of a workshop
+01:28 on how to use Flask and Mongo to build REST services.
+01:32 But, what I was really looking for
+01:35 was some kind of validation for my project and idea.
+01:39 That is when basically Eve as an open source framework was born.
+01:45 So here it is, if you have data store somewhere
+01:48 and you need to expose it through some kind of RESTful services,
+01:51 then Eve is the tool that allows you to do so.
+01:54 And because it is built on top of Flask,
+01:56 it is very easy to use, as you can see in this snippet here,
+02:01 and also it's easily customizable and extendable.

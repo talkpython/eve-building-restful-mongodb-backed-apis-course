@@ -1,0 +1,58 @@
+00:01 Now we are all set, Eve is installed within its own isolated virtual environment
+00:05 and we are ready to start coding and build our powerful RESTful API.
+00:10 But, what if we want to play and experiment
+00:13 with different versions of the framework?
+00:16 Let's say that we want to use the development version of the framework
+00:20 which is available on github but not on PyPi.
+00:23 This might actually make sense
+00:26 because by design Eve has a very slow release cycle
+00:30 if we go a look at the website
+00:32 we see that right now we are working on 0.8 version,
+00:38 which has a lot of stuff, new stuff, fixes, new features
+00:42 and even some breaking changes as you can see.
+00:46 While the latest table version the one we just installed is the 0.7.5
+00:51 which has been released almost one year ago.
+00:54 So, it might make sense to switch to a different version of Eve
+00:59 and see if our framework and our API needs some work.
+01:04 This is where virtual environments really shine
+01:07 because what we need to do is just create a new virtual environment
+01:12 and install the new version, the different version of Eve
+01:15 in its own virtual environment, let's try that.
+01:19
+01:26 So as you can see, I am trying to create a new virtual environment,
+01:29 this time it will be called eve-course-dev,
+01:33
+01:36 and now I can switch to it,
+01:40
+01:50 and bam, as you can see, the prompt has changed,
+01:52 we are now in a new virtual environment,
+01:54 we left the previous one, and we switched to the new one.
+01:57 In fact, if we go with pip freeze,
+02:00 we don't have anything installed here.
+02:03 I can go and install Eve, but if I just go with pip install Eve,
+02:08 I will install the stable version again,
+02:10 so how do I install the version which is available on github?
+02:13 I just use the github url here,
+02:16 and as you can see, pip will go and collect from github
+02:22 it will first go in the repo then collect all the information,
+02:26 run all the setup scripts,
+02:27 and finally, we get the success message as before.
+02:31 Now, let me see with pip freeze what we got here,
+02:38 as you can see, we have Eve 0.8 development version
+02:43 and if I switch back to the previous environment
+02:51
+03:00 there we go, we are back to the stable version.
+03:06 And there are other differences,
+03:08 for example, you see that in the stable environment,
+03:10 we have this dependency here
+03:13 Flask-PyMmongo, which is not available.
+03:15 On the development version, as you can see,
+03:18 we don't have Flask-PyMongo here,
+03:20 this is because in the new version of Eve,
+03:22 we dropped that dependency and we wrote our own code,
+03:25 so we don't have that one anymore.
+03:28 So as you can see, I can switch back and forth
+03:30 between two totally different versions of Eve
+03:33 and possibly other dependencies are different as well,
+03:36 and I can test whatever I want
+03:38 by simply switching back and forth between virtual environments.

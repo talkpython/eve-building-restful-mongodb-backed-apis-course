@@ -1,0 +1,67 @@
+00:01 One question that often comes up of Stack Overflow is
+00:03 how do you store datetime values, and how do you query for them.
+00:08 Well, the thing is, Json comes with no date types,
+00:11 so usually Rest services fall back to parsing matching strings
+00:16 and then store them as datetime values.
+00:20 In order for that to work properly however,
+00:22 client server need to agree on a standard string format for datetime fields.
+00:27 By default, Eve accepts datetime fields as rfc1123 strings,
+00:33 this format is the de facto standard in Rest and more in general, on the internet.
+00:40 To give you an idea of what an rfc1123 date looks like,
+00:45 let's just take a look at the values for the
+00:48 updated and created metafields in any Eve document,
+00:52 we have a string of course,
+00:54 the first value within the string is the actual day, 3 letters,
+00:58 comma and then the full date,
+01:01 then the hours, minutes and seconds for the time,
+01:05 and finally the timezone, very simple, staightforward, easy to read.
+01:10 So let's try to perform a query on a date field,
+01:13 here for example, I am asking for all the people
+01:16 which have been updated at a date greater than or equal to Tue, 20 Feb.
+01:24 So let's send this query in and we get a number of documents back, 6 total.
+01:30 If we go back and update and change the date to 21 Feb,
+01:36 we should get back a couple of documents right, 2  documents total.
+01:41 So as you can see, the date we used for our queries
+01:44 is matching in format the date we have on the documents,
+01:48 and this is the rfc1123 format.
+01:53 But what if you need to have
+01:55 some different kind of string format in your documents?
+01:59 Well, we can do that very easily,
+02:01 we just need to go back to our code editor and type in something like this,
+02:05 date format is the setting which allows you
+02:07 to change the default format for datetime sting values,
+02:12 here we are saying to Eve
+02:14 I don't want to use rfc1123, I want to use this format instead.
+02:18 If you are curious about this string in here,
+02:21 you should know that this is the standard Python notation for datetime stings,
+02:27 we are using what is called the strf time format
+02:32 so you can go here on the Python website and look at the documentation
+02:38 where you get a very nice table with all the meanings,
+02:41 all the values, strings you can use or directive as they are code
+02:46 to the format of your string.
+02:49 So back to the editor we go and I am basically saying
+02:53 I only want day month and year in my date format.
+02:57 Now if I go back to Postman,
+03:01 let me first save, and relaunch the server as usual,
+03:06 now if we perform the same query here with the old format
+03:12 we should get nothing back exactly,
+03:15 because there you have no matches for this string format
+03:18 but if we say that we only want to use the date with this format here
+03:26 which should match the one we defined,
+03:28 we should get back on track exactly,
+03:32 so two documents and two fields.
+03:34 Let's try with 20, 7 documents, yes,
+03:38 that makes sense because we are losing precision here
+03:40 with the same query we were getting 6 documents before
+03:44 but now, we aren't providing any time information,
+03:47 so we're getting all the documents for the 20 Feb and one more document.
+03:54 Keep in mind that the date format settings
+03:57 has an epath not only on the queries, but also on the Json payloads,
+04:03 so when you change the format, you also need to change your payloads,
+04:07 for example, here I am still trying to write a document
+04:10 with the rfc1123 standard format,
+04:14 if I try to send a request to my service,
+04:16 I get an error because born is not of datetime type,
+04:20 it actually is, but it is not conforming to our new standard,
+04:24 so what we need to do here, of course, is go and update this field
+04:31 and try to post again, and it will work.

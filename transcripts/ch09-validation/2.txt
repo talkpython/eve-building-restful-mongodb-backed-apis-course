@@ -1,0 +1,117 @@
+00:00 All right, as you can see, while you weren't watching,
+00:03 I went back to our basic app and expanded the schema definition a little bit.
+00:07 I added new rules for the fields we already know,
+00:11 and also added new fields like born, age, role etc.
+00:14 First name is still a string,
+00:16 but now it has min and max length rules,
+00:20 which, of course, means that when a value comes in with this field,
+00:24 it must be between 1 and 30 in length.
+00:27 Last name is more interesting, again, it's still a string,
+00:31 but now we also have a max length
+00:33 and the field is also required and must be unique.
+00:38 Now by default, fields are not required.
+00:41 So first name here you don't have to provide it with every single document.
+00:46 If you don't have a first name with your document, it's fine,
+00:49 the document will be saved anyway,
+00:51 but last name you have to provide it because it is required.
+00:55 And not only that, it is also unique,
+00:58 which means that the value coming with the document
+01:01 must be the only one in the endpoint for this field.
+01:06 So if we already have a John Doe and we try to save a Mike Doe,
+01:11 we get an error because the value for last name is not unique.
+01:14 So pretty powerful, it works really well with Mongo.
+01:17 There is one small caveat you want to know about
+01:20 and that is that if you have bulk inserts enabled at your endpoint,
+01:25.42 because the unique rule is only checked against the document
+01:28 already stored on the data set.
+01:31 If you have five documents coming into your system with the same request
+01:36 and they have duplicated value for the last name,
+01:39.92 as long as this last name does not exist in the database,
+01:43.26 they will be accepted.
+01:45 If this is a risk you don't want to run
+01:47 you might disable bulk inserts for the endpoint,
+01:50 so the clients are forced only save one document at a time,
+01:54 or you might want to build a custom validator
+01:57 which will also check the values within the document.
+02:0.13 Next, we have the born field which is new, and it is of type datetime.
+02:06 Speaking of types, we only saw the string and now the datetime type
+02:9.57 If we go to the documentation site,
+02:12.19 we see that we have a number of options there
+02:15 Of course, the basic ones like boolean, integer, float, number
+02:19 which is basically integer and float values allowed,
+02:22 datetime, dictionaries, lists, media, which is very interesting,
+02:27.2 it allows us to store images, pictures and movies,
+02:31 and if we're using the Mongo data layer which is the default,
+02:35 the one we're using in this course, we also have the Mongo types
+02:39 like object id,  db reference, and all the GeoJson types
+02:44 like point, multi point, etc, and also the decimal tag type
+02:49 which only recently has been added to the Mongo features set.
+02:56 Age is read only, which means that clients can't write or overwrite it.
+03:01 So documents coming into the API cannot have the age field
+03:06 otherwise they will be rejected.
+03:07 So why would you want to add this field to the schema?
+03:12 Well, the reason is that by default, Eve will only return fields it knows about.
+03:17 So you still want to add age if you want
+03:20 this field to be returned from the database to your clients.
+03:25 Next up is role, role is a list, and it comes with two new rules,
+03:29 one is allowed, which supports a list of allowed values for the field
+03:33 and the second one is very interesting, and it is default
+03:37.62 which means that whenever a document comes in
+03:40 with no value for this field, a default will be set
+03:43 by the framework and stored with the document.
+03:45 So in this case, every time a document with no role comes in,
+03:49 a default role of author will be set for this field.
+03:54 The last field I added to the schema definition
+03:56 for the people endpoint is location.
+03:59 As you can see, this is of type dict
+04:02 and because it is a dictionary,
+04:03 we can define a schema for the dictionary itself.
+04:06 In Mongo DB terms, this is going to be a subdocument
+04:09 and when we define a sub document,
+04:11 we can also define its schema,
+04:13 so again, all the validation rules we've been setting for the main document
+04:17 can also be set for the subdocument.
+04:21 Here we only have two fields for the location which are address and city.
+04:26 City is a string as address, but it is also required.
+04:31 Now, because location itself is not required.
+04:34 We aren't requested to provide this feed with every document,
+04:39 but if we provide field, then the city field is required and should be added,
+04:44 otherwise, the document will be rejected.
+04:47 If we wanted a location to be required, we need to do this,
+04:54
+04:56 so in this case location is required,
+05:00 and when we provide it, we also have to provide city
+05:03 while we can avoid providing address.
+05:07 All right, I already saved these new settings and also relaunched
+05:12 let me know about the postman
+05:14 and try to make a post of a new document
+05:18 like the ones we have been storing so far.
+05:21 So only a first name field set to Bill.
+05:25 If we send this request over, what we get back is
+05:29 as expected, an unprocessable entity error,
+05:32 with two issues, one for the location field
+05:36 which is missing and it is required, and the same for last name,
+05:40 both of them are indeed required as per our settings.
+05:44 So, let's go back to our request and add values,
+05:49
+05:53 let's pretend I forget to add the city
+05:56
+06:01 okay, let's try to send these over,
+06:05 new errors, as you can see, last name
+06:08 now, we provided the last name value
+06:11 but it is not unique because on the people endpoint
+06:14 we already have a John Doe
+06:16 so since last name is unique, this value is not accepted,
+06:20 and then the location, we provided that location field but the city field
+06:25 within the location subdocument is still missing, so let's fix this.
+06:31
+06:38 All right, now we should be good to go, let's try that,
+06:41 great, so this time we get a created status code,
+06:47 we can go and do a get request to our document endpoint
+06:53 we get the unique id of the document and hit the endpoint there,
+06:59 and yes, we have the unique id of course, first name, last name, location
+07:05 as we provided it, but we also have a role field with the default value of author.
+07:11 Of course, the age field is still missing
+07:16 it was read only so we didn't provide it,
+07:18 but there is no age field in the document on the data set,
+07:22 so it is not being returned by the API, but that's fine.

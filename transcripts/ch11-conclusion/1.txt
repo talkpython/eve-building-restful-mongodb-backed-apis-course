@@ -1,0 +1,32 @@
+00:0.29 That's right, you've made it all the way to the end of this course.
+00:4.06 I hope you found it super interesting and you've learned a lot
+00:08 because I believe you now have enough
+00:10 to build powerful and fully featured Rest services.
+00:14.61 So now the big question you need to be asking yourself is
+00:17 what kind of service are you going to build now.
+00:20 You have this amazing new power, what are you going to build with it?
+00:24.4 I hope you'll take what you learned in this course
+00:26 and you'll go build something amazing.
+00:29.85 And remember, we've seen many Eve features during this course
+00:33 and there are others out there just waiting for you to discover them.
+00:37 I suggest you take a look at stuff like cache control, document versioning,
+00:42.5 soft deletes, predefined db filters, file media storage, GeoJson,
+00:47.8 logging and the oplog, and last but absolutely not least
+00:52 the native support for Mongo aggregations.
+00:56 On the website, you'll also find tutorials on
+00:59 how to enable more advanced authentication schemes
+01:02 such as token or hmac authentication.
+01:6.23 Just go to python-eve.org and carefully check all the docs out there
+01:9.94 I'm sure you will find plenty of the useful information.
+01:14 Now before you leave and you go build that thing
+01:17 let's talk about a few wrap up details.
+01:20 First of all, make sure you get the materials from the github repository.
+01:25 If you haven't already, go to
+01:27 github.com talkpython eve-building-restufl-mongodb-backed-apis course,
+01:33 the URL is there at the bottom and star this repository,
+01:38 or consider forking it so you have a permanent vision for yourself.
+01:43.45 As far as I know the git materials are entirely finished, and published
+01:47 there is a chance that somebody will find a small bug throughout the course,
+01:51 or I will refactor some of the code,
+01:55.06 but it is very likely that what you see
+01:57 at this github repository is final material.

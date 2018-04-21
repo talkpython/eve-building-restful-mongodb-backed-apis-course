@@ -1,0 +1,88 @@
+00:01 Installing Eve is a simple task.
+00:03 As with basically every other Python tool,
+00:05 you really want to install it into a virtual environment.
+00:08 A virtual environment is a Python environment
+00:11 where the Python interpreter, libraries and scripts installed into it
+00:15 are isolated from those installed in other virtual environments
+00:18 and any libraries installed in a system Python,
+00:21 like the one which is installed as part of your operating system.
+00:25 So let's install Eve.
+00:27 As you can see, I'm using a Mac here,
+00:29 if you are on Windows, don't worry,
+00:31 everything you see me doing during this course will also work on Windows
+00:35 just make sure that you are using backslashes
+00:37 whereas I'm typing forward slashes in the file paths,
+00:43 folder names, stuff like that.
+00:45 The first thing we want to do is make sure
+00:47 that Python is actually installed on our system and ready to work.
+00:50 So let's ask which Python 3, there it is, so we can use it.
+00:56 If you wanted to use Python 2,
+00:58 of course, we just have to go with Python.
+01:03 We now want to create our vital environment
+01:05 and within this virtual environment,
+01:07 we will install Eve and all of its dependencies,
+01:10 so Eve will be isolated from other Python installations in our system.
+01:16 When it comes to virtual environments in Python
+01:19 we are left with two options really,
+01:21 one is called virtual env, you probably know about it already
+01:25 because it's been around since forever,
+01:27 it is very nice because it works equally well on Python 2 and Python 3,
+01:32 so if you are working on Python 2, you probably want to use it.
+01:36 You actually have to install it because it doesn't come with Python
+01:40 but since we are working on Python 3,
+01:42 we want to use the new method which comes built in with the Python itself
+01:48 so we are going with Python 3 - m venv
+01:53 and then it wants a path, virtual envs/eve-course,
+01:59 so let's review this command here.
+02:02 Python 3 is, of course, the interpreter,
+02:05 - m is an option which is basically instructing Python
+02:08 to execute the following module here as a script and then we have a path,
+02:15 if the path doesn't exist on your system, it will be created for you.
+02:19 As you can see, I'm using a root folder for all my virtual environments
+02:23 and then I'm building an Eve course folder within the root folder.
+02:28 Let's execute it— bam,
+02:33 now let's take a look at our system,
+02:36 as you can see, I have a new folder here virtual env,
+02:39 and if I look at it there is my Eve course within it.
+02:43
+02:47 If we inspect the Eve course, we see that the number of folders on the file
+02:51 we don't really care about what is being stored within this folder,
+02:56 we just need to know that this is where all of our packages will be installed
+03:02 and where the activation and the activation scripts
+03:05 for our virtual environment are also stored.
+03:08 How do we activate this virtual environment actually?
+03:11 Well, I just use the source command
+03:15
+03:19 and then I go and use the activate script
+03:24 as you can see, the prompt has changed
+03:27 and it is telling me that now we are inside our virtual environment
+03:31 and since we are inside a virtual environment
+03:35 and every single virtual environment activated with Python
+03:38 comes with the installation tools
+03:41 we can already use pip
+03:43 and ask for what's installed in our environment right now,
+03:47 and of course, there is nothing because we just created this environment.
+03:51 Now I can go and finally install Eve with pip install eve.
+03:57 When I hit return here, it will go online, look up for Eve
+04:01 and then install Eve itself and all of its dependencies.
+04:06
+04:09 There it goes.
+04:11 As you can see it's collecting all the info
+04:13 and then it is running all the setups,
+04:16 scrapes for each of the dependencies,
+04:20 and finally we get a very nice message here
+04:22 which is telling us all the dependencies
+04:25 with their versions which have been installed.
+04:27 Now, if I try pip freeze again
+04:32 I see that I have all of my dependencies ready to work
+04:36 and in fact, if I run Python, I get Python 3.6.
+04:41 I can for example import Eve— it works.
+04:47 And how do I deactivate my virtual environment?
+04:50 Well, it is very easy, I just need to use the deactivate command.
+04:55 As you can see, the prompt has changed back again
+04:58 to no virtual environment name
+05:01 and in fact, if I try to use pip here, it doesn't even work
+05:06 because it's not there, it only comes with virtual environment
+05:11 or I have to install it on my system Python,
+05:15 I can always go back to my
+05:21 virtual environment and again, ready to work.

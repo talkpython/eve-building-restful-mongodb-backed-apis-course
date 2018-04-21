@@ -1,0 +1,59 @@
+00:0.0 Rate limiting is a very important feature
+00:02 that every Rest service should support.
+00:05 In Eve, you can set the number of requests
+00:08 and the time window for each individual user for every single http method.
+00:13 If the request limit is hit within the time window,
+00:17.32 the API will respond with a specific error status
+00:20 and that will continue to happen until the timer resets.
+00:24 Users are identified by their authentication header
+00:28 or if it is missing by their IP.
+00:31 Rate limits are important because they greatly reduce
+00:35 the risk of your service being slowed down
+00:38 by either a bug, client or a denial of service attack.
+00:43 Let's see how it works.
+00:45 Rate limiting needs a redis server running somewhere
+00:49 I have one running here on local host
+00:51 and the next thing you need, of course, is a Python client for redis
+00:56.46 which isn't installed by default with Eve.
+00:59.33 So the first thing we need to do is pip install redis
+01:03 within our virtual environment. Done.
+01:7.82 And now that we have that,
+01:09 we can go and from redis import the redis class..
+01:15 Next, what we need to do is pass an instance of our redis class to our Eve instance.
+01:22.4 Since I didn't set the host for the redis instance,
+01:28.0 it will connect to local lost, which is fine in my case.
+01:32 Next, since now Eve knows how to connect to redis,
+01:36.42 we can go to our settings file, let me save here first,
+01:42 we can go to our settings file and configure
+01:44 how Eve should behave with regard to rate limiting,
+01:49 So with this command, I'm setting a rate limit on the get method
+01:52.35 the limit is going to be one request every 60 seconds.
+01:58.15 So you pass a tuple
+02:00 where the first element in the tuple is the number of requests
+02:06 and the second is the number of seconds for every time window.
+02:10 If I wanted to set a limit for the post request, for example,
+02:15.08 I should do something like this.
+02:17 So we have the option of setting
+02:20 a different rate limiting depending on the method
+02:23 and also remember that the rate limit window is
+02:28.55 for every single user for every single method.
+02:31.82 Whereas a user is identified by the client IP
+02:36 or the authentication header if authentication is used.
+02:40 Let's save these settings and launch our API.
+02:48.74 Let's go to Postman and try a get request on a specific person endpoint.
+02:55 We get the person, if we go and check their headers
+03:00 or the response sent by the server
+03:3.11 we see that there are three new headers we didn't see before,
+03:7.5 so the first one rate limit = 1
+03:10.63 which means I performed one request within the time window,
+03:15.0 remaining zero, which, of course, means that
+03:17 I don't have any requests allowed within the time window
+03:22.12 and this is when the window will reset.
+03:25 If I try a second request, I get a too many requests error, 429.
+03:31 This is going to happen until the minute window resets, and if we look at the body,
+03:38.91 we also get a rate limit exceeded message,
+03:42.33 that's a point the window will reset.
+03:50.04 And now the time window has reset and I can perform a get request again.
+03:55.34 Now, if I go back to my headers, of course, I get a new time window
+04:00 and if I try a second request within the new time window,
+04:04 I am again, blocked.
